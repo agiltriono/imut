@@ -19,6 +19,7 @@ module.exports.execute = async function(interaction, client, userId) {
     var row2 = {
       type: 1,
       components: [
+        new MessageButton().setCustomId('goodbye_button_reset_'+userId).setEmoji("♻️").setLabel("Reset").setStyle('PRIMARY'),
         new MessageButton().setCustomId('goodbye_button_channel_'+userId).setEmoji("📢").setLabel("Channel").setStyle('PRIMARY'),
         new MessageButton().setCustomId('goodbye_button_test_'+userId).setEmoji("📨").setLabel("Test").setStyle('SUCCESS')
       ]

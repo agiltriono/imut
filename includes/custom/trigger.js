@@ -17,7 +17,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
       var cc = [...server.child("cc").val()]
       cc[cc.findIndex(i=>i.name === commandName)].trigger = value;
       await db.child(guild.id).update({cc:cc})
-      await interaction.reply(Object.assign({}, embeds(`✏️ **Trigger di ganti**\n🆕 **${value}**`), {component: [row]}))
+      await interaction.reply(Object.assign({}, embeds(`✏️ **Trigger di ganti**\n🆕 **${value}**`), {components: [row]}))
     })
   } else {
     const modal = new Modal()

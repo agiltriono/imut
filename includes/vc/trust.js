@@ -34,7 +34,13 @@ module.exports.execute = async function(interaction, client) {
         "VIEW_CHANNEL": true,
         "CONNECT": true,
         "SEND_MESSAGES": true,
-        "READ_MESSAGE_HISTORY": true
+        "READ_MESSAGE_HISTORY": true,
+        "ADD_REACTIONS": true,
+        "EMBED_LINKS": true,
+        "ATTACH_FILES": true,
+        "USE_EXTERNAL_EMOJIS": true,
+        "USE_APPLICATION_COMMANDS": true,
+        "SEND_TTS_MESSAGES": true
       })
      
       await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({trust:result.toString()})

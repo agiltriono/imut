@@ -26,7 +26,16 @@ module.exports.run = async function(msg, args, creator, prefix) {
     await db.child(msg.guild.id).child("voice").update({creator:channel.id})
     const permit = channel.permissionOverwrites.cache
     permit.forEach(async (c)=> {
-      if (c.type === "role") await channel.permissionOverwrites.edit(c.id, {"SEND_MESSAGES": false,"READ_MESSAGE_HISTORY": false});
+      if (c.type === "role") await channel.permissionOverwrites.edit(c.id, {
+        "SEND_MESSAGES": false,
+        "READ_MESSAGE_HISTORY": false,
+        "ADD_REACTIONS": false,
+        "EMBED_LINKS": false,
+        "ATTACH_FILES": false,
+        "USE_EXTERNAL_EMOJIS": false,
+        "USE_APPLICATION_COMMANDS": false,
+        "SEND_TTS_MESSAGES": false
+      });
     })
     await msg.channel.send(embeds(`✅ Creator channel berhasil di setel ke ${channel.name}.`))
   } else if (args[0] != undefined && args[0].toLowerCase() === "help") {

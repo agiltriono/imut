@@ -33,7 +33,13 @@ module.exports.execute = async function(interaction, client) {
         "VIEW_CHANNEL": true,
         "CONNECT": false,
         "SEND_MESSAGES": false,
-        "READ_MESSAGE_HISTORY": false
+        "READ_MESSAGE_HISTORY": false,
+        "ADD_REACTIONS": false,
+        "EMBED_LINKS": false,
+        "ATTACH_FILES": false,
+        "USE_EXTERNAL_EMOJIS": false,
+        "USE_APPLICATION_COMMANDS": false,
+        "SEND_TTS_MESSAGES": false
       })
      await guild.members.cache.get(value[0]).voice.disconnect()
      await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({block:result.toString()})

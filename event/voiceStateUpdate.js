@@ -44,10 +44,16 @@ module.exports = {
         await channel.lockPermissions()
         await channel.permissionOverwrites.set(main.permissionOverwrites.cache)
         await channel.permissionOverwrites.create(member.user.id, {
-          'VIEW_CHANNEL': true,
-          'CONNECT': true,
-          'SEND_MESSAGES': true,
-          'READ_MESSAGE_HISTORY': true
+          "VIEW_CHANNEL": true,
+          "CONNECT": true,
+          "SEND_MESSAGES": true,
+          "READ_MESSAGE_HISTORY": true,
+          "ADD_REACTIONS": true,
+          "EMBED_LINKS": true,
+          "ATTACH_FILES": true,
+          "USE_EXTERNAL_EMOJIS": true,
+          "USE_APPLICATION_COMMANDS": true,
+          "SEND_TTS_MESSAGES": true
         })
         // Add the channel id to the array of temporary channel ids.
         await db.child(guild.id).child("voice").child('temp').child(channel.id).update({
@@ -89,13 +95,17 @@ module.exports = {
         const blocked = temp.child(newChannelId).child("block")
         const isTrusted = trusted.exists() ? trusted.val().trim().split(",") : []
         const isBlocked = blocked.exists() ? blocked.val().trim().split(",") : []
-        if(isBlocked.length != 0 && isBlocked.includes(member.user.id)) return member.voice.disconnect();
+        if(isBlocked.length != 0 && isBlocked.includes(member.user.id)) return;
         if (isTrusted.length != 0 && isTrusted.includes(member.user.id)) return;
         if (member.user.id != owner) await channel.permissionOverwrites.create(member.user.id, {
-          'VIEW_CHANNEL': true,
-          'CONNECT': true,
-          'SEND_MESSAGES': true,
-          'READ_MESSAGE_HISTORY': true
+          "SEND_MESSAGES": true,
+          "READ_MESSAGE_HISTORY": true,
+          "ADD_REACTIONS": true,
+          "EMBED_LINKS": true,
+          "ATTACH_FILES": true,
+          "USE_EXTERNAL_EMOJIS": true,
+          "USE_APPLICATION_COMMANDS": true,
+          "SEND_TTS_MESSAGES": true
         })
       }
     })

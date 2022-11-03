@@ -15,7 +15,7 @@ module.exports = async function help(msg, client, args, creator) {
   var category = [...new Set(list)].map(cat => {
 	  const dir = msg.client.commands.filter(obj => obj.help.category === cat);
     if (dir.size != 0) {
-  	  return `${emoji(cat).emoji} **${cat}**\n${dir.map(obj => `*${obj.help.name}*`).join(", ")}`
+  	  return `${emoji(cat)} **${cat}**\n${dir.map(obj => `*${obj.help.name}*`).join(", ")}`
   	}
   }).join("\n")
 	await msg.channel.send({

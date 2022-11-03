@@ -24,12 +24,9 @@ module.exports.run = async function(msg, args, creator, prefix) {
     if(!channel) return msg.channel.send(embeds("❌ Channel tidak ditemukan!"));
     if (channel.type != "GUILD_VOICE") return msg.channel.send(embeds("❌ Channel bukan *Voice Channel*"));
     await db.child(msg.guild.id).child("voice").update({creator:channel.id})
-    channel.permissionOverwrites.cache.forEach(async (c)=> {
-      if (c.type === "role") await 
-      c.permissionOverwrites.edit(c.id, {
-        "SEND_MESSAGES": false,
-        "READ_MESSAGE_HISTORY": false
-      })
+    const permit = channel.permissionOverwrites.cache
+    permit.forEach(async (c)=> {
+      if (c.type === "role") await channel.permissionOverwrites.edit(c.id, {"SEND_MESSAGES": false,"READ_MESSAGE_HISTORY": false});
     })
     await msg.channel.send(embeds(`✅ Creator channel berhasil di setel ke ${channel.name}.`))
   } else if (args[0] != undefined && args[0].toLowerCase() === "help") {

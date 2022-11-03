@@ -33,7 +33,8 @@ module.exports.execute = async function(interaction, client) {
       await channel.permissionOverwrites.create(value[0],{
         "VIEW_CHANNEL": true,
         "CONNECT": true,
-        "SEND_MESSAGES": true
+        "SEND_MESSAGES": true,
+        "READ_MESSAGE_HISTORY": true
       })
      
       await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({trust:result.toString()})

@@ -46,7 +46,8 @@ module.exports = {
         await channel.permissionOverwrites.create(member.user.id, {
           'VIEW_CHANNEL': true,
           'CONNECT': true,
-          'SEND_MESSAGES': true
+          'SEND_MESSAGES': true,
+          'READ_MESSAGE_HISTORY': true
         })
         // Add the channel id to the array of temporary channel ids.
         await db.child(guild.id).child("voice").child('temp').child(channel.id).update({
@@ -93,7 +94,8 @@ module.exports = {
         if (member.user.id != owner) await channel.permissionOverwrites.create(member.user.id, {
           'VIEW_CHANNEL': true,
           'CONNECT': true,
-          'SEND_MESSAGES': true
+          'SEND_MESSAGES': true,
+          'READ_MESSAGE_HISTORY': true
         })
       }
     })

@@ -15,32 +15,43 @@ module.exports.execute = async function(interaction, client) {
     var oldcomp = interaction.message.components
     const staff = guild.members.cache.get(value[0]);
     if (staff.permissions.has("ADMINISTRATOR") || staff.permissions.has("MANAGE_GUILD") || staff.user.id === interaction.guild.ownerId) return interaction.update(Object.assign({}, ephemeral(`✅ Selesai!`), {components:[]}))
-    var comp = [
-      new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_1").setPlaceholder(selected(1,args[1])).addOptions([{label:"none1",value:"none1"}]).setDisabled(true)),
-      new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_2").setPlaceholder(selected(2,args[1])).addOptions([{label:"none2",value:"none2"}]).setDisabled(true)),
-      new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_3").setPlaceholder(selected(3,args[1])).addOptions([{label:"none3",value:"none3"}]).setDisabled(true)),
-      new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_4").setPlaceholder(selected(4,args[1])).addOptions([{label:"none4",value:"none4"}]).setDisabled(true)),
-      new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_5").setPlaceholder(selected(5,args[1])).addOptions([{label:"none5",value:"none5"}]).setDisabled(true))
-    ]
-    var menu = comp.splice(0, oldcomp.length)
-    let channel = guild.channels.resolve(voiceChannel.id)
-    await guild.members.cache.get(value[0]).voice.disconnect()
-    await interaction.update(Object.assign(ephemeral(`⚠️ <@${value}> Telah di kick dari channel **${voiceChannel.name}**`), {components: menu }))
+    db.child(guild.id).once("value", async (server) => {
+      const vc = server.child("voice").child("temp").child(voiceChannel.id)
+      const trusted = vc.child("trust")
+      const blocked = vc.child("block")
+      var isTrusted = trusted.exists() ? trusted.val().trim().split(",") : []
+      var comp = [
+        new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_1").setPlaceholder(selected(1,args[1])).addOptions([{label:"none1",value:"none1"}]).setDisabled(true)),
+        new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_2").setPlaceholder(selected(2,args[1])).addOptions([{label:"none2",value:"none2"}]).setDisabled(true)),
+        new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_3").setPlaceholder(selected(3,args[1])).addOptions([{label:"none3",value:"none3"}]).setDisabled(true)),
+        new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_4").setPlaceholder(selected(4,args[1])).addOptions([{label:"none4",value:"none4"}]).setDisabled(true)),
+        new MessageActionRow().addComponents(new MessageSelectMenu().setCustomId("imut_vc_selectmenu_kick_5").setPlaceholder(selected(5,args[1])).addOptions([{label:"none5",value:"none5"}]).setDisabled(true))
+      ]
+      var menu = comp.splice(0, oldcomp.length)
+      let channel = guild.channels.resolve(voiceChannel.id)
+      await guild.members.cache.get(value[0]).voice.disconnect()
+      const permit = channel.permissionOverwrites.cache.get(value[0])
+      if (permit) {
+        await permit.delete();
+      }
+      if (isTrusted.inculdes(value[0])) {
+        let result = array.filter(u=>u != value)
+        if (result.length == 0) await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).child("trust").remove();
+        if (result.length > 0) await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({trust:result.toString()});
+      }
+      await interaction.update(Object.assign(ephemeral(`⚠️ <@${value}> Telah di kick dari channel **${voiceChannel.name}**`), {components: menu }))
+    }}
   } else {
     await interaction.deferReply({ephemeral:true})
     if (!voiceChannel) return interaction.editReply(ephemeral("⚠️ **Please join voice terlebih dahulu.**"));
     db.child(guild.id).once("value", async (server) => {
       var vc = server.child("voice")
       var temp = vc.child("temp").child(voiceChannel.id)
-      var trusted = temp.child("trust")
-      var blocked = temp.child("block")
       if(temp.numChildren() === 0) return interaction.editReply(ephemeral(`⛔ Kamu gak join di creator voice **${client.user.username}**!`));
       var owner = temp.child("owner").val()
       if (owner != interaction.user.id) return interaction.editReply(ephemeral("⚠️ Akses ditolak! Kamu bukan owner!"));
       var ghost = temp.child("ghost").val()
       if (ghost == "yes") return interaction.editReply(ephemeral(`⚠️ Tidak dapat menggunakan **KICK** ketika channel dalam keadaan tersembunyi, Gunakan **UNHIDE** terlebih dahulu.`));
-      var isTrusted = trusted.exists() ? trusted.val().trim().split(",") : []
-      var isBlocked = blocked.exists() ? blocked.val().trim().split(",") : []
       var user = voiceChannel.members.filter(member=> member.user.id != interaction.user.id)
       if (user.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia saat ini.`));
       var option = user.map(member=> {

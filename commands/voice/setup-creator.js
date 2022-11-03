@@ -8,7 +8,7 @@ module.exports.help = {
     usage:"",
     category: "Auto Channel",
     permissions: ["ADMINISTRATOR"],
-    description: "Set crator channel untik member dapat membuat channel secara otomatis"
+    description: "Set crator channel untuk member dapat membuat channel secara otomatis"
 }
 
 module.exports.run = async function(msg, args, creator, prefix) {
@@ -24,8 +24,12 @@ module.exports.run = async function(msg, args, creator, prefix) {
     if(!channel) return msg.channel.send(embeds("❌ Channel tidak ditemukan!"));
     if (channel.type != "GUILD_VOICE") return msg.channel.send(embeds("❌ Channel bukan *Voice Channel*"));
     await db.child(msg.guild.id).child("voice").update({creator:channel.id})
-    await channel.permissionOverwrites.edit(msg.guild.roles.everyone, {
-      "SEND_MESSAGES": false
+    channel.permissionOverwrites.cache.forEach(async (c)=> {
+      if (c.type === "role") await 
+      c.permissionOverwrites.edit(c.id, {
+        "SEND_MESSAGES": false,
+        "READ_MESSAGE_HISTORY": false
+      })
     })
     await msg.channel.send(embeds(`✅ Creator channel berhasil di setel ke ${channel.name}.`))
   } else if (args[0] != undefined && args[0].toLowerCase() === "help") {

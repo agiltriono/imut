@@ -9,7 +9,7 @@ module.exports = async function help(msg, client, args, creator) {
       { name: "Utility", emoji:"🛠"},
       { name: "Custom Command", emoji:"📝"},
       ]
-    return list.find(e => e.name.toLowerCase() == emo.toLowerCase())
+    return list.find(e => e.name.toLowerCase() == emo.toLowerCase()).name
   }
   var list = msg.client.commands.map(cmd => cmd.help.category)
   var category = [...new Set(list)].map(cat => {

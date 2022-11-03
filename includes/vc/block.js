@@ -32,7 +32,8 @@ module.exports.execute = async function(interaction, client) {
       await channel.permissionOverwrites.create(value[0],{
         "VIEW_CHANNEL": true,
         "CONNECT": false,
-        "SEND_MESSAGES": false
+        "SEND_MESSAGES": false,
+        "READ_MESSAGE_HISTORY": false
       })
      await guild.members.cache.get(value[0]).voice.disconnect()
      await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({block:result.toString()})

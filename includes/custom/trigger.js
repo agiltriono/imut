@@ -2,8 +2,9 @@ const { MessageActionRow, Modal, TextInputComponent, MessageButton } = require("
 const { database, embeds } = require(".././../util/util")
 const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId, args) {
+  const guild = interaction.guild
+  const commandName = args[2]
   if (interaction.customId.includes("cc_modal_")) {
-    const commandName = args[2]
     const field = interaction.fields
     const value = field.getTextInputValue('cc_modal_trigger_input');
     db.child(guild.id).once("value", async(server) => {
@@ -14,7 +15,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
     })
   } else {
     const modal = new Modal()
-      .setCustomId('cc_modal_trigger_'+userId)
+      .setCustomId('cc_modal_trigger_'+userId+"_"+commandName)
       .setTitle('Edit Trigger')
       .addComponents([
         new MessageActionRow().addComponents(

@@ -1,0 +1,27 @@
+const { database, embeds, ephemeral } = require(".././../util/util")
+const db = database.ref("guild")
+module.exports.execute = async function(interaction, client) {
+  // voice > temp > userId
+  await interaction.guild.members.fetch()
+  const guild = interaction.guild
+  const member = guild.members.cache.get(interaction.user.id);
+  const voiceChannel = member.voice.channel;
+  if (!voiceChannel) return interaction.reply(ephemeral("⚠️ **Please join voice terlebih dahulu.**"));
+  db.child(guild.id).once("value", async (server) => {
+    var vc = server.child("voice")
+    var creator = vc.child("creator").val()
+    var temp = vc.child("temp").child(voiceChannel.id)
+    if(temp.numChildren() === 0) return interaction.reply(ephemeral(`⛔ Kamu gak join di creator voice **${client.user.username}**!`));
+    var owner = temp.child("owner").val()
+    if (owner != interaction.user.id) return interaction.reply(ephemeral("⚠️ Akses ditolak! Kamu bukan owner!"));
+    var ghost = temp.child("ghost").val()
+    if (ghost != "yes") return interaction.reply(ephemeral(`⚠️ Channel tidak dalam mode tersembunyi. Gunakan **HIDE** untuk berubah ke mode invincible.`));
+    await interaction.deferReply({ephemeral:true})
+    let channel = interaction.guild.channels.resolve(voiceChannel.id)
+    channel.permissionOverwrites.cache.forEach(async (c) => {
+      if (c.type == "role" && c.id != interaction.guild.roles.everyone.id) return channel.permissionOverwrites.edit(c.id,{"VIEW_CHANNEL": true});
+    })
+    await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({ghost:"no"})
+    await interaction.editReply(ephemeral(`🔑 Channel **${voiceChannel.name}** terlihat.`));
+  })
+}

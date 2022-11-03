@@ -9,13 +9,13 @@ module.exports = async function help(msg, client, args, creator) {
       { name: "Utility", emoji:"🛠"},
       { name: "Custom Command", emoji:"📝"},
       ]
-    return list.find(e => e.name.toLowerCase() == emo.toLowerCase()).name
+    return list.find(e => e.name.toLowerCase() == emo.toLowerCase())
   }
   var list = msg.client.commands.map(cmd => cmd.help.category)
   var category = [...new Set(list)].map(cat => {
 	  const dir = msg.client.commands.filter(obj => obj.help.category === cat);
     if (dir.size != 0) {
-  	  return `${emoji(cat)} **${cat}**\n${dir.map(obj => `*${obj.help.name}*`).join(", ")}`
+  	  return `${emoji(cat).emoji} **${cat}**\n${dir.map(obj => `*${obj.help.name}*`).join(", ")}`
   	}
   }).join("\n")
 	await msg.channel.send({

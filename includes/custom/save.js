@@ -14,7 +14,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
       components: [
         new MessageButton().setCustomId('cc_button_close_'+userId).setLabel("Dismis").setEmoji("🗑").setStyle('DANGER')
       ]
-    } 
+    }
     if (content.length != 0) {
       cc[cc.findIndex(c=>c.name === commandName)].content = content
       await db.child(guild.id).update({cc:cc})

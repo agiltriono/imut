@@ -7,6 +7,12 @@ module.exports.execute = async function(interaction, client, userId, args) {
   if (interaction.customId.includes("cc_modal_")) {
     const field = interaction.fields
     const value = field.getTextInputValue('cc_modal_trigger_input');
+    var row = {
+      type: 1,
+      components: [
+        new MessageButton().setCustomId('cc_button_close_'+userId).setLabel("Dismis").setEmoji("🗑").setStyle('DANGER')
+      ]
+    } 
     db.child(guild.id).once("value", async(server) => {
       var cc = [...server.child("cc").val()]
       cc[cc.findIndex(i=>i.name === commandName)].trigger = value;

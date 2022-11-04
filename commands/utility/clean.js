@@ -17,17 +17,17 @@ module.exports.run = async (msg, args, creator, client, prefix) => {
   const number = /^[1-9][0-9]?$|^100$/;
   const character = /[a-zA-Z]+/;
   const message = await msg.channel.messages.fetch()
-  if (!number.test(args[0]) || args[0].toLowerCase() === "all") {
+  if (args[0].toLowerCase() === "all") {
     if (message.size == 0) return msg.channel.send(embeds("❌ Gak ada chat untuk di hapus!")).then(m=>clear(m,3000));
     return msg.channel.send({embeds:[{
       color: "#ff6961",
       title: "PERINGATAN PENGHAPUSAN MASAL",
-      description: `**Pembersihan dimulai setelah ⏰15 detik.**`
+      description: `**Pembersihan dimulai setelah ⏰10 detik.**`
     }]}).then(async m => {
-      await clear(m, 15000)
+      await clear(m, 10000)
       return purge(msg, "all", 0, Date.now())
     })
-  } else if (number.test(args[0]) && args[0].toLowerCase() != "all") {
+  } else if (number.test(args[0])) {
     if (message.size == 0) return msg.channel.send(embeds("❌ Gak ada chat untuk di hapus!")).then(m=>clear(m,3000));
     return purge(msg, parseInt(args[0]), 0, Date.now())
   } else {

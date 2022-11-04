@@ -43,7 +43,7 @@ module.exports.run = async function(msg, args, creator, prefix) {
   })
   const button = name.map(name => {
     return new MessageButton().setCustomId("imut_vc_interface_"+name.id)
-    .setLabel(name.id.capitalize())
+    //.setLabel(name.id.capitalize())
     .setEmoji(name.emoji)
     .setStyle("SECONDARY")
   })

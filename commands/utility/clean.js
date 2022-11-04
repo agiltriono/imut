@@ -17,7 +17,7 @@ module.exports.run = async (msg, args, creator, client, prefix) => {
   const number = /^[1-9][0-9]?$|^100$/;
   const character = /[a-zA-Z]+/;
   const message = await msg.channel.messages.fetch()
-  if (character.test(args[0]) && args[0].toLowerCase() === "all") {
+  if (!number.test(args[0]) || args[0].toLowerCase() === "all") {
     if (message.size == 0) return msg.channel.send(embeds("❌ Gak ada chat untuk di hapus!")).then(m=>clear(m,3000));
     return msg.channel.send({embeds:[{
       color: "#ff6961",
@@ -27,7 +27,7 @@ module.exports.run = async (msg, args, creator, client, prefix) => {
       await clear(m, 15000)
       return purge(msg, "all", 0, Date.now())
     })
-  } else if (number.test(args[0])) {
+  } else if (number.test(args[0]) && args[0].toLowerCase() != "all") {
     if (message.size == 0) return msg.channel.send(embeds("❌ Gak ada chat untuk di hapus!")).then(m=>clear(m,3000));
     return purge(msg, parseInt(args[0]), 0, Date.now())
   } else {

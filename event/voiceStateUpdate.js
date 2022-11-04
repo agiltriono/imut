@@ -1,20 +1,18 @@
 const { database } = require("../util/util")
 const db = database.ref("guild")
 /*
-client.on('voiceStateUpdate', (oldState, newState) => {
-    if(oldState.channelID === newState.channelID) {
-        console.log('a user has not moved!')
-    }
-    if(oldState.channelID != null && newState.channelID != null && newState.channelID != oldState.channelID) {
-        console.log('a user switched channels')
-    }
-    if(oldState.channelID === null) {
-        console.log('a user joined!')
-    }
-    if (newState.channelID === null) {
-        console.log('a user left!')
-    }
-});
+  if(oldState.channelID === newState.channelID) {
+      console.log('a user has not moved!')
+  }
+  if(oldState.channelID != null && newState.channelID != null && newState.channelID != oldState.channelID) {
+      console.log('a user switched channels')
+  }
+  if(oldState.channelID === null) {
+      console.log('a user joined!')
+  }
+  if (newState.channelID === null) {
+      console.log('a user left!')
+  }
 */
 module.exports = {
   name: "voiceStateUpdate",

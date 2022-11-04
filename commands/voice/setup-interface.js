@@ -57,7 +57,7 @@ module.exports.run = async function(msg, args, creator, prefix) {
     }
     return chunks;
   }
-  const row = chunk(button, 3)
+  const row = chunk(button, 5)
   const contents = {
     embeds: [{
       color: color(),

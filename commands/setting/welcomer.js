@@ -13,7 +13,6 @@ module.exports.help = {
 
 module.exports.run = async function(msg, args, creator, prefix) {
   await msg.delete()
-  if (!msg.member.permissions.has("ADMINISTRATOR") || !msg.member.permissions.has("MANAGE_GUILD") || creator.id != msg.guild.ownerId) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   var row = {
     type: 1,

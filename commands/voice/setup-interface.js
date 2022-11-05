@@ -16,7 +16,6 @@ String.prototype.capitalize = function() {
 module.exports.run = async function(msg, args, creator, prefix) {
   await msg.delete()
   // claim, unlock, lock, hide, unhide, region, limit, trust, block, kick, rename, untrust, unblock, info
-  if (!msg.member.permissions.has("ADMINISTRATOR") || !msg.member.permissions.has("MANAGE_GUILD") || creator.id != msg.guild.ownerId) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const name = [
     {id: "claim", emoji: "<:claim:1037335789345980506>",description:"Klaim Ownership channel."},

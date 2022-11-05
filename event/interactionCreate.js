@@ -23,6 +23,7 @@ module.exports = {
       if (interaction.customId.includes('welcomer_button_')) return go("welcomer", "welcomer/welcomer", interaction.customId.replace("welcomer_button_", ""));
       if (interaction.customId.includes('goodbye_button_')) return go("goodbye", "goodbye/goodbye", interaction.customId.replace("goodbye_button_", ""));
       if (interaction.customId.includes('cc_button_')) return go("custom", "custom/custom", interaction.customId.replace("cc_button_", ""));
+      if (interaction.customId.includes('setting_button_')) return go("setting", "setting/setting", interaction.customId.replace("setting_button_", ""));
     }
     if (interaction.isSelectMenu()) {
       if (interaction.message.partial) {
@@ -39,6 +40,7 @@ module.exports = {
       if (interaction.customId.includes('welcomer_selectmenu_')) return go("welcomer", "welcomer/welcomer", interaction.customId.replace("welcomer_selectmenu_", ''));
       if (interaction.customId.includes('goodbye_selectmenu_')) return go("goodbye", "goodbye/goodbye", interaction.customId.replace("goodbye_selectmenu_", ''));
       if (interaction.customId.includes('cc_selectmenu_')) return go("custom", "custom/custom", interaction.customId.replace("cc_selectmenu_", ''));
+      if (interaction.customId.includes('setting_selectmenu_')) return go("setting", "setting/setting", interaction.customId.replace("setting_selectmenu_", ''));
     }
     if (interaction.isModalSubmit()) {
       if (interaction.message.partial) {

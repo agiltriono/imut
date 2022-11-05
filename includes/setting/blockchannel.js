@@ -31,6 +31,8 @@ module.exports.execute = async function(interaction, client, userId) {
     new MessageActionRow().addComponents(new MessageSelectMenu()
       .setCustomId(`setting_selectmenu_blockchannel_${userId}_1`)
       .setPlaceholder(`Pilih Channel 1`)
+      .setMinValues(1)
+	    .setMaxValues(option.length)
       .addOptions(option))
     ]
   const menu = option.length > 25 ? await chunk(option, 25, userId) : simple

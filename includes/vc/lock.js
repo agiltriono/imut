@@ -19,7 +19,6 @@ module.exports.execute = async function(interaction, client) {
      let permit = channel.permissionOverwrites.cache.filter(perm=> perm.type == "role");
      permit.forEach(async (perm)=> {
       await channel.permissionOverwrites.edit(perm.id, {
-        'VIEW_CHANNEL': true,
         'CONNECT': false
       })
     })

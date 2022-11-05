@@ -11,6 +11,12 @@ module.exports.help = {
 }
 module.exports.run = async (msg, args, creator, client, prefix) => {
   await clear(msg, 1000)
+  const permis = [
+    (msg.member.permissions.has("ADMINISTRATOR")),
+    (msg.member.permissions.has("MANAGE_GUILD")),
+    (creator.id === msg.guild.ownerId)
+  ].filter(u=>u.toString() != "false")
+  if(permis.length === 0) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   if (!args.length) return msg.channel.send(embeds(`❌  Masukan di butuhkan!\n**Contoh: ${prefix}${clean} 1-100|all**`)).then(m => clear(m, 2000))
   const number = /^[1-9][0-9]?$|^100$/;

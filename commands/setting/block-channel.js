@@ -14,10 +14,10 @@ module.exports.run = async (msg, args, creator, prefix) => {
   await msg.delete()
   const member = msg.guild.members.cache.get(creator.id)
   const permis = [
-    member.permissions.has("ADMINISTRATOR"),
-    member.permissions.has("MANAGE_GUILD"),
-    creator.id === msg.guild.ownerId
-  ].filter(perm=>perm.toString() === "true");
+    (msg.member.permissions.has("MANAGE_ROLES")),
+    (msg.member.permissions.has("ADMINISTRATOR")),
+    (creator.id === msg.guild.ownerId)
+  ].filter(u=>u.toString() != "false")
   if (permis.length === 0) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const guild = msg.guild

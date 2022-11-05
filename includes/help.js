@@ -1,7 +1,6 @@
 const { embeds, getmsg, remove, color } = require("../util/util"); 
 const fs = require("fs");
 module.exports = async function help(msg, client, args, creator) {
-  if (!msg.member.permissions.has("ADMINISTRATOR") || msg.author.id != msg.guild.ownerId || !msg.member.permissions.has("MANAGE_CHANNELS")) return;
   var emoji = function (emo) {
     let list = [
       { name: "Auto Channel", emoji:"🔊"},

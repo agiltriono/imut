@@ -23,16 +23,16 @@ module.exports.execute = async function(interaction, client, userId) {
   var button = [{
     type: 1,
     components: [
-      new MessageButton().setCustomId('setting_button_close_'+creator.id).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
+      new MessageButton().setCustomId('setting_button_close_'+userId).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
     ]
   }]
   const simple = [
     new MessageActionRow().addComponents(new MessageSelectMenu()
-      .setCustomId(`setting_selectmenu_blockchannel_1`)
+      .setCustomId(`setting_selectmenu_blockchannel_${userId}_1`)
       .setPlaceholder(`Pilih Channel 1`)
       .addOptions(option))
     ]
-  const menu = option.length > 25 ? await chunk(option, 25) : simple
+  const menu = option.length > 25 ? await chunk(option, 25, userId) : simple
   await db.child(guild.id).update({bc:merged.join(",")})
   await interaction.update({
     embeds: [{
@@ -42,16 +42,16 @@ module.exports.execute = async function(interaction, client, userId) {
     components: [].concat(button, menu)
   })
   } catch (error) {
-    interaction.reply(ephemeral(error.message))
+    interaction.reply(ephemeral(error.message)
   }
 }
-async function chunk(obj, i) {
+async function chunk(obj, i, userId) {
   let chunks = [];
   let count = 0
   while(obj.length){
     count++;
     chunks.push(new MessageActionRow().addComponents(new MessageSelectMenu()
-    .setCustomId(`setting_selectmenu_blockchannel_${count}`)
+    .setCustomId(`setting_selectmenu_blockchannel_${userId}_${count}`)
     .setPlaceholder(`Pilih Channel ${count}`)
     .addOptions(obj.splice(0,i))));
   }

@@ -16,7 +16,6 @@ module.exports.run = async (msg, args, creator, prefix) => {
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const guild = msg.guild
   db.child(guild.id).once("value", async (s) => {
-    try {
     const allowed = s.child("bc")
     const block = allowed.exists() ? allowed.val().split(",") : []
     const list = function () {
@@ -39,11 +38,11 @@ module.exports.run = async (msg, args, creator, prefix) => {
     }]
     const simple = [
       new MessageActionRow().addComponents(new MessageSelectMenu()
-        .setCustomId(`setting_selectmenu_blockchannel_1`)
-        .setPlaceholder(`Daftar Channel 1`)
+        .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
+        .setPlaceholder(`Daftar Channel `)
         .addOptions(option))
       ]
-    const menu = option.length > 25 ? await chunk(option, 25) : simple
+    const menu = option.length > 25 ? await chunk(option, 25, creator.id) : simple
     await msg.channel.send({
       embeds: [{
         title: "BLOCKED CHANNEL",
@@ -51,18 +50,15 @@ module.exports.run = async (msg, args, creator, prefix) => {
       }],
       components: [].concat(button, menu)
     })
-    } catch (error) {
-      msg.channel.send(error.message)
-    }
   })
 }
-async function chunk(obj, i) {
+async function chunk(obj, i, userId) {
   let chunks = [];
   let count = 0
   while(obj.length){
     count++;
     chunks.push(new MessageActionRow().addComponents(new MessageSelectMenu()
-    .setCustomId(`setting_selectmenu_blockchannel_${count}`)
+    .setCustomId(`setting_selectmenu_blockchannel_${userId}_${count}`)
     .setPlaceholder(`Daftar Channel ${count}`)
     .addOptions(obj.splice(0,i))));
   }

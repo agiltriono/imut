@@ -39,7 +39,9 @@ module.exports.run = async (msg, args, creator, prefix) => {
     const simple = [
       new MessageActionRow().addComponents(new MessageSelectMenu()
         .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
-        .setPlaceholder(`Daftar Channel `)
+        .setPlaceholder(`Daftar Channel 1`)
+        .setMinValues(1)
+	      .setMaxValues(option.length)
         .addOptions(option))
       ]
     const menu = option.length > 25 ? await chunk(option, 25, creator.id) : simple
@@ -60,6 +62,8 @@ async function chunk(obj, i, userId) {
     chunks.push(new MessageActionRow().addComponents(new MessageSelectMenu()
     .setCustomId(`setting_selectmenu_blockchannel_${userId}_${count}`)
     .setPlaceholder(`Daftar Channel ${count}`)
+    .setMinValues(1)
+	  .setMaxValues(25)
     .addOptions(obj.splice(0,i))));
   }
   return chunks;

@@ -6,11 +6,11 @@ module.exports.execute = async function(interaction, client, userId) {
   try {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
-  const regex = /^<#[0-9]*>$/;
+  const regex = /^<#[0-9]*>$/gm;
   const selected = interaction.values
   const description = message.embeds[0].description.trim()
   const current = description.includes("Tidak ada channel") ? [] : description.split(",").map(c=> c.trim().replace(regex, ""))
-  const pre_merged = current.length != 0 ? [...new Set([...current,...selected])] : [...selected]
+  const pre_merged = current.length != 0 ? [...new Set(...current,...selected)] : [...selected]
   const merged = pre_merged.filter(id => !current.includes(id))
   const ch = await guild.channels.cache.filter(c=>c.type === "GUILD_TEXT")
   const option = ch.map(c => {
@@ -54,6 +54,8 @@ async function chunk(obj, i, userId) {
     chunks.push(new MessageActionRow().addComponents(new MessageSelectMenu()
     .setCustomId(`setting_selectmenu_blockchannel_${userId}_${count}`)
     .setPlaceholder(`Pilih Channel ${count}`)
+    .setMinValues(1)
+	  .setMaxValues(25)
     .addOptions(obj.splice(0,i))));
   }
   return chunks;

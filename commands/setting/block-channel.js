@@ -12,12 +12,13 @@ module.exports.help = {
 
 module.exports.run = async (msg, args, creator, prefix) => {
   await msg.delete()
+  const member = msg.guild.members.cache.get(creator.id)
   const permis = [
-    msg.member.permissions.has("ADMINISTRATOR"),
-    msg.member.permissions.has("MANAGE_GUILD"),
-    (creator.id === msg.guild.ownerId)
-    ]
-  if (!permis.includes(true)) return;
+    member.permissions.has("ADMINISTRATOR"),
+    member.permissions.has("MANAGE_GUILD"),
+    creator.id === msg.guild.ownerId
+  ].filter(perm=>perm.toString() === "true");
+  if (permis.length === 0) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const guild = msg.guild
   db.child(guild.id).once("value", async (s) => {

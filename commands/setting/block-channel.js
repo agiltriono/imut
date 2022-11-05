@@ -30,12 +30,12 @@ module.exports.run = async (msg, args, creator, prefix) => {
         description: block.includes(c.id.toString()) ? "Hapus channel dari daftar" : "Tambahkan channel ke daftar",
       }
     })
-    var button = {
+    var button = [{
       type: 1,
       components: [
         new MessageButton().setCustomId('setting_button_close_'+creator.id).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
       ]
-    }
+    }]
     const simple = [
       new MessageActionRow().addComponents(new MessageSelectMenu()
         .setCustomId(`setting_selectmenu_blockchannel_${count}`)
@@ -48,7 +48,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
         title: "BLOCKED CHANNEL",
         description: list()
       }],
-      components: [button, menu]
+      components: [].concat(button, menu)
     })
   })
 }

@@ -25,18 +25,18 @@ module.exports.execute = async function(interaction, client, userId) {
       description: merged.includes(c.id.toString()) ? "Hapus channel dari daftar" : "Tambahkan channel ke daftar"
     }
   })
-  var option = [].concat(tutup, array)
-  const simple = () => { 
-      return [
-        new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
-          .setPlaceholder(`Daftar Channel 1`)
-          .setMinValues(1)
-  	      .setMaxValues(option.length)
-          .addOptions(option))
-      ]
-    }
-  const menu = option.length > 25 ? await chunk(option, 25, userId) : simple
+  var option = [].concat([...tutup], [...array])
+  const simple = function () { 
+    return [
+      new MessageActionRow().addComponents(new MessageSelectMenu()
+        .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
+        .setPlaceholder(`Daftar Channel 1`)
+        .setMinValues(1)
+	      .setMaxValues(option.length)
+        .addOptions(option))
+    ]
+  }
+  const menu = option.length > 25 ? await chunk(option, 25, userId) : simple()
   if (merged.length == 0) await db.child(guild.id).child("bc").remove();
   if (merged.length > 0) await db.child(guild.id).update({bc:merged.toString()});
   await interaction.update({

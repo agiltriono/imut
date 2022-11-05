@@ -42,7 +42,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
       }
     })
     const option = [].concat(tutup, array)
-    const simple = () => { 
+    const simple = function () { 
       return [
         new MessageActionRow().addComponents(new MessageSelectMenu()
           .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
@@ -52,7 +52,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
           .addOptions(option))
       ]
     }
-    const menu = option.length > 25 ? await chunk(option, 25, creator.id) : simple
+    const menu = option.length > 25 ? await chunk(option, 25, creator.id) : simple()
     await msg.channel.send({
       embeds: [{
         color: color(),

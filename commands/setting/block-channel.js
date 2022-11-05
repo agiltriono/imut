@@ -16,6 +16,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const guild = msg.guild
   db.child(guild.id).once("value", async (s) => {
+    try {
     const allowed = s.child("bc")
     const block = allowed.exists() ? allowed.val().split(",") : []
     const list = function () {
@@ -50,6 +51,9 @@ module.exports.run = async (msg, args, creator, prefix) => {
       }],
       components: [].concat(button, menu)
     })
+    } catch (error) {
+      msg.channel.send(error.message)
+    }
   })
 }
 async function chunk(obj, i) {

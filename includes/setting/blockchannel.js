@@ -4,10 +4,9 @@ const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
-  try {
   const regex = /^<#[0-9]*>$/gm;
   const selected = interaction.values
-  const description = interaction.embeds[0].description.trim()
+  const description = interaction.message.embeds[0].description.trim()
   const current = description != "Tidak ada channel" ? description.split(",").map(c=> c.trim().replace(regex, "")) : []
   const pre_merged = current.length != 0 ? [...new Set([...current,...selected]) : [...selected]
   const merged = [...pre_merged].filter(id => !current.includes(id))
@@ -41,9 +40,6 @@ module.exports.execute = async function(interaction, client, userId) {
     }],
     components: [].concat(button, menu)
   })
-  } catch (error) {
-    interaction.reply(ephemeral(error.message)
-  }
 }
 async function chunk(obj, i, userId) {
   let chunks = [];

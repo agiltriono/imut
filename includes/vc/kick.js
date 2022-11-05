@@ -40,7 +40,7 @@ module.exports.execute = async function(interaction, client) {
         if (result.length > 0) await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({trust:result.toString()});
       }
       await interaction.update(Object.assign(ephemeral(`⚠️ <@${value}> Telah di kick dari channel **${voiceChannel.name}**`), {components: menu }))
-    }}
+    })
   } else {
     await interaction.deferReply({ephemeral:true})
     if (!voiceChannel) return interaction.editReply(ephemeral("⚠️ **Please join voice terlebih dahulu.**"));
@@ -52,9 +52,8 @@ module.exports.execute = async function(interaction, client) {
       if (owner != interaction.user.id) return interaction.editReply(ephemeral("⚠️ Akses ditolak! Kamu bukan owner!"));
       var ghost = temp.child("ghost").val()
       if (ghost == "yes") return interaction.editReply(ephemeral(`⚠️ Tidak dapat menggunakan **KICK** ketika channel dalam keadaan tersembunyi, Gunakan **UNHIDE** terlebih dahulu.`));
-      var isEmpty = voiceChannel.members.filter(member=> member.user.id != interaction.user.id)
-      if (isEmpty.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia saat ini.`));
       var user = voiceChannel.members.filter(member=> member.user.id != interaction.user.id)
+      if (user.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia saat ini.`));
       var option = user.map(member=> {
         return {
           label: member.user.username,

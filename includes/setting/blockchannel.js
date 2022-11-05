@@ -6,11 +6,18 @@ module.exports.execute = async function(interaction, client, userId) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
   const selected = [...interaction.values]
+  if(selected.includes("tutup")) return interaction.message.delete();
   const description = message.embeds[0].description.trim()
   const current = description.includes("Tidak ada channel") ? [] : description.split(",").map(c=> c.replace(/[\\<>@#&!]/g, ""))
   const merged = current.length != 0 ? [...new Set([...current.filter(id=> !selected.includes(id)),...selected.filter(id=>!current.includes(id))])] : [...selected]
-  const ch = await guild.channels.cache.filter(c=>c.type === "GUILD_TEXT")
-  const option = ch.map(c => {
+  const ch = guild.channels.cache.filter(c=>c.type === "GUILD_TEXT")
+  const tutup = [{
+    label: "TUTUP PENGATURAN",
+    value: "tutup",
+    emoji: "❎",
+    description: "Pilih ini untuk menutup pengaturan."
+  }]
+  const array = ch.map(c => {
     return {
       label: c.name,
       value: c.id.toString(),
@@ -18,12 +25,7 @@ module.exports.execute = async function(interaction, client, userId) {
       description: merged.includes(c.id.toString()) ? "Hapus channel dari daftar" : "Tambahkan channel ke daftar"
     }
   })
-  var button = [{
-    type: 1,
-    components: [
-      new MessageButton().setCustomId('setting_button_close_'+userId).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
-    ]
-  }]
+  var option = [].concat(tutup, array)
   const simple = [
     new MessageActionRow().addComponents(new MessageSelectMenu()
       .setCustomId(`setting_selectmenu_blockchannel_${userId}_1`)
@@ -40,7 +42,7 @@ module.exports.execute = async function(interaction, client, userId) {
       title: "BLOCKED CHANNEL",
       description: merged.length != 0 ? merged.map(c=> `<#${c}>`).toString() : "Tidak ada channel"
     }],
-    components: [].concat(button, menu)
+    components: menu
   })
 }
 async function chunk(obj, i, userId) {

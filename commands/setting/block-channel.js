@@ -1,5 +1,5 @@
 const { MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js");
-const { database, PREFIX, fdb, clear, embeds, remove } = require(".././../util/util");
+const { database, clear, embeds, remove, color } = require(".././../util/util");
 const db = database.ref("guild");
 module.exports.help = {
     name: "blocked-channel",
@@ -27,7 +27,13 @@ module.exports.run = async (msg, args, creator, prefix) => {
       return block.length != 0 ? block.map(c=> `<#${c}>`).join(",") : "Tidak ada channel"
     }
     const ch = await guild.channels.cache.filter(c=>c.type === "GUILD_TEXT")
-    const option = ch.map(c => {
+    const tutup = [{
+      label: "TUTUP PENGATURAN",
+      value: "tutup",
+      emoji: "❎",
+      description: "Pilih ini untuk menutup pengaturan."
+    }]
+    const array = ch.map(c => {
       return {
         label: c.name,
         value: c.id.toString(),
@@ -35,12 +41,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
         description: block.includes(c.id.toString()) ? "Hapus channel dari daftar" : "Tambahkan channel ke daftar",
       }
     })
-    var button = [{
-      type: 1,
-      components: [
-        new MessageButton().setCustomId('setting_button_close_'+creator.id).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
-      ]
-    }]
+    const option = [].concat(tutup, array)
     const simple = [
       new MessageActionRow().addComponents(new MessageSelectMenu()
         .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
@@ -52,10 +53,11 @@ module.exports.run = async (msg, args, creator, prefix) => {
     const menu = option.length > 25 ? await chunk(option, 25, creator.id) : simple
     await msg.channel.send({
       embeds: [{
+        color: color(),
         title: "BLOCKED CHANNEL",
         description: list()
       }],
-      components: [].concat(button, menu)
+      components: menu
     })
   })
 }

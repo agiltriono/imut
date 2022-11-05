@@ -26,14 +26,16 @@ module.exports.execute = async function(interaction, client, userId) {
     }
   })
   var option = [].concat(tutup, array)
-  const simple = [
-    new MessageActionRow().addComponents(new MessageSelectMenu()
-      .setCustomId(`setting_selectmenu_blockchannel_${userId}_1`)
-      .setPlaceholder(`Pilih Channel 1`)
-      .setMinValues(1)
-	    .setMaxValues(option.length)
-      .addOptions(option))
-    ]
+  const simple = () => { 
+      return [
+        new MessageActionRow().addComponents(new MessageSelectMenu()
+          .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
+          .setPlaceholder(`Daftar Channel 1`)
+          .setMinValues(1)
+  	      .setMaxValues(option.length)
+          .addOptions(option))
+      ]
+    }
   const menu = option.length > 25 ? await chunk(option, 25, userId) : simple
   if (merged.length == 0) await db.child(guild.id).child("bc").remove();
   if (merged.length > 0) await db.child(guild.id).update({bc:merged.toString()});

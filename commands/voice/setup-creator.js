@@ -26,12 +26,12 @@ module.exports.run = async function(msg, args, creator, prefix) {
     await db.child(msg.guild.id).child("voice").update({creator:channel.id})
     const permit = channel.permissionOverwrites.cache
     /*todo channel permission disable view message voice chat
-    SEND_MESSAGES
-    READ_MESSAGE_HISTORY
-    ADD_REACTIONS
-    ATTACH_FILES
-    USE_EXTERNAL_EMOJIS
-    USE_APPLICATION_COMMANDS
+      SEND_MESSAGES
+      READ_MESSAGE_HISTORY
+      ADD_REACTIONS
+      ATTACH_FILES
+      USE_EXTERNAL_EMOJIS
+      USE_APPLICATION_COMMANDS
     */
     permit.forEach(async (c)=> {
       if (c.type === "role") await channel.permissionOverwrites.edit(c.id, {

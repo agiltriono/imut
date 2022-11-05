@@ -52,7 +52,8 @@ module.exports.execute = async function(interaction, client) {
       if (owner != interaction.user.id) return interaction.editReply(ephemeral("⚠️ Akses ditolak! Kamu bukan owner!"));
       var ghost = temp.child("ghost").val()
       if (ghost == "yes") return interaction.editReply(ephemeral(`⚠️ Tidak dapat menggunakan **KICK** ketika channel dalam keadaan tersembunyi, Gunakan **UNHIDE** terlebih dahulu.`));
-      var user = voiceChannel.members.filter(member=> member.user.id != interaction.user.id)
+      const channel = interaction.guild.channels.resolve(voiceChannel.id)
+      var user = channel.members.filter(member=> member.user.id != interaction.user.id)
       if (user.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia saat ini.`));
       var option = user.map(member=> {
         return {

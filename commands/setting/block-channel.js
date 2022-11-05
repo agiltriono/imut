@@ -18,7 +18,6 @@ module.exports.run = async (msg, args, creator, prefix) => {
     (msg.member.permissions.has("ADMINISTRATOR")),
     (creator.id === msg.guild.ownerId)
   ].filter(u=>u.toString() != "false")
-  return msg.channel.send(permis.join(","))
   if (permis.length === 0) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const guild = msg.guild

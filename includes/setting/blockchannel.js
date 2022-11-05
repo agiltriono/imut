@@ -41,6 +41,7 @@ module.exports.execute = async function(interaction, client, userId) {
   if (merged.length > 0) await db.child(guild.id).update({bc:merged.toString()});
   await interaction.update({
     embeds: [{
+      color: color(),
       title: "BLOCKED CHANNEL",
       description: merged.length != 0 ? merged.map(c=> `<#${c}>`).toString() : "Tidak ada channel"
     }],

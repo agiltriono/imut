@@ -41,7 +41,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
         description: block.includes(c.id.toString()) ? "Hapus channel dari daftar" : "Tambahkan channel ke daftar",
       }
     })
-    const option = [].concat(tutup, array)
+    const option = [].concat([...tutup], [...array])
     const simple = function () { 
       return [
         new MessageActionRow().addComponents(new MessageSelectMenu()

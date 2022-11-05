@@ -4,6 +4,7 @@ const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
+  try {
   const regex = /^<#[0-9]*>$/gm;
   const selected = interaction.values
   const description = interaction.embeds[0].description.trim()
@@ -27,8 +28,8 @@ module.exports.execute = async function(interaction, client, userId) {
   }]
   const simple = [
     new MessageActionRow().addComponents(new MessageSelectMenu()
-      .setCustomId(`setting_selectmenu_blockchannel_${count}`)
-      .setPlaceholder(`Pilih Channel ${count}`)
+      .setCustomId(`setting_selectmenu_blockchannel_1`)
+      .setPlaceholder(`Pilih Channel 1`)
       .addOptions(option))
     ]
   const menu = option.length > 25 ? await chunk(option, 25) : simple
@@ -40,6 +41,9 @@ module.exports.execute = async function(interaction, client, userId) {
     }],
     components: [].concat(button, menu)
   })
+  } catch (error) {
+    interaction.reply(ephemeral(error.message))
+  }
 }
 async function chunk(obj, i) {
   let chunks = [];

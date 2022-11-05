@@ -39,8 +39,8 @@ module.exports.run = async (msg, args, creator, prefix) => {
     }]
     const simple = [
       new MessageActionRow().addComponents(new MessageSelectMenu()
-        .setCustomId(`setting_selectmenu_blockchannel_${count}`)
-        .setPlaceholder(`Daftar Channel ${count}`)
+        .setCustomId(`setting_selectmenu_blockchannel_1`)
+        .setPlaceholder(`Daftar Channel 1`)
         .addOptions(option))
       ]
     const menu = option.length > 25 ? await chunk(option, 25) : simple

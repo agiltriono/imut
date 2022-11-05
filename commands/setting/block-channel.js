@@ -16,10 +16,10 @@ module.exports.run = async (msg, args, creator, prefix) => {
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const guild = msg.guild
   db.child(guild.id).once("value", async (s) => {
-    const allowed = s.child("b")
-    const block = allowed.exists() ? allowed.split(",") : []
+    const allowed = s.child("bc")
+    const block = allowed.exists() ? allowed.val().split(",") : []
     const list = function () {
-      return block.length != 0 ? block.map(c=> `<@${c}>`).join(",") : "Tidak ada channel"
+      return block.length != 0 ? block.map(c=> `<#${c}>`).join(",") : "Tidak ada channel"
     }
     const ch = await guild.channels.cache.filter(c=>c.type === "GUILD_TEXT")
     const option = ch.map(c => {
@@ -43,7 +43,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
         .addOptions(option))
       ]
     const menu = option.length > 25 ? await chunk(option, 25) : simple
-    await message.channel.send({
+    await msg.channel.send({
       embeds: [{
         title: "BLOCKED CHANNEL",
         description: list()

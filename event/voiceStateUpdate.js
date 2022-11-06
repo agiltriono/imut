@@ -39,7 +39,6 @@ module.exports = {
               parent: main.parent
             }
         );
-        await channel.lockPermissions()
         await channel.permissionOverwrites.set(main.permissionOverwrites.cache)
         await channel.permissionOverwrites.create(member.user.id, {
           "VIEW_CHANNEL": true,

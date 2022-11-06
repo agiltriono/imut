@@ -1,5 +1,5 @@
 const { MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js");
-const { database, clear, embeds, remove, color } = require(".././../util/util");
+const { database, clear, embeds, remove,color } = require(".././../util/util");
 const db = database.ref("guild");
 module.exports.help = {
     name: "blocked-channel",
@@ -41,7 +41,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
         description: block.includes(c.id.toString()) ? "Hapus channel dari daftar" : "Tambahkan channel ke daftar",
       }
     })
-    const option = [].concat([...tutup], [...array])
+    const option = [].concat(tutup,array)
     const simple = function () { 
       return [
         new MessageActionRow().addComponents(new MessageSelectMenu()
@@ -68,16 +68,13 @@ async function chunk(obj, i, userId) {
   let count = 0
   while(obj.length){
     count++;
+    const arr = obj.splice(0,i)
     chunks.push(new MessageActionRow().addComponents(new MessageSelectMenu()
     .setCustomId(`setting_selectmenu_blockchannel_${userId}_${count}`)
     .setPlaceholder(`Daftar Channel ${count}`)
     .setMinValues(1)
-	  .setMaxValues(25)
-    .addOptions(obj.splice(0,i))));
+	  .setMaxValues(arr.length)
+    .addOptions(arr)));
   }
   return chunks;
 }
-/*
-      const value = i.values
-      const newArray = [...new Set([...isAllowed,...value])]
-*/

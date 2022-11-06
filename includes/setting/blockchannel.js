@@ -25,7 +25,7 @@ module.exports.execute = async function(interaction, client, userId) {
       description: merged.includes(c.id.toString()) ? "Hapus channel dari daftar" : "Tambahkan channel ke daftar"
     }
   })
-  var option = [].concat([...tutup], [...array])
+  var option = [].concat(tutup, array)
   const simple = function () { 
     return [
       new MessageActionRow().addComponents(new MessageSelectMenu()
@@ -53,12 +53,13 @@ async function chunk(obj, i, userId) {
   let count = 0
   while(obj.length){
     count++;
+    const arr = obj.splice(0,i)
     chunks.push(new MessageActionRow().addComponents(new MessageSelectMenu()
     .setCustomId(`setting_selectmenu_blockchannel_${userId}_${count}`)
     .setPlaceholder(`Pilih Channel ${count}`)
     .setMinValues(1)
-	  .setMaxValues(25)
-    .addOptions(obj.splice(0,i))));
+	  .setMaxValues(arr.length)
+    .addOptions(arr)));
   }
   return chunks;
 }

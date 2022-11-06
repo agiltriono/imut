@@ -8,7 +8,7 @@ module.exports.help = {
     usage:"",
     category: "Auto Channel",
     permissions: ["ADMINISTRATOR"],
-    description: "Set crator channel untuk member dapat membuat channel secara otomatis"
+    description: "Set creator channel untuk member dapat membuat channel secara otomatis"
 }
 
 module.exports.run = async function(msg, args, creator, prefix) {

@@ -39,7 +39,7 @@ module.exports.run = async function(msg, args, creator, prefix) {
       USE_APPLICATION_COMMANDS
     */
     permit.forEach(async (c)=> {
-      if (c.type === "role") await channel.permissionOverwrites.edit(c.id, {
+      if (c.type === "role" && ![984301622492541010,985762912062808174].includes(c.id)) await channel.permissionOverwrites.edit(c.id, {
         "SEND_MESSAGES": false,
         "READ_MESSAGE_HISTORY": false,
         "ADD_REACTIONS": false,

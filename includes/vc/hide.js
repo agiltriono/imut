@@ -17,7 +17,7 @@ module.exports.execute = async function(interaction, client) {
     await interaction.deferReply({ephemeral:true})
     let channel = interaction.guild.channels.resolve(voiceChannel.id)
     channel.permissionOverwrites.cache.forEach(async (c) => {
-      if (c.type == "role" && c.id != interaction.guild.roles.everyone.id) return channel.permissionOverwrites.edit(c.id,{"VIEW_CHANNEL": false});
+      if (c.type == "role" && c.id != interaction.guild.roles.everyone.id && ![984301622492541010,985762912062808174].includes(c.id)) return channel.permissionOverwrites.edit(c.id,{"VIEW_CHANNEL": false});
     })
     await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({ghost:"yes"})
     await interaction.editReply(ephemeral(`🔑 Channel **${voiceChannel.name}** tersembunyi!`));

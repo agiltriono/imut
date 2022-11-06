@@ -68,7 +68,7 @@ module.exports = {
         if (memberCount === 0) {
           // Delete the channel
           await oldChannel.delete();
-          await db.child(guild.id).child("voice").child("temp").child(oldChannelId).remove()
+          //await db.child(guild.id).child("voice").child("temp").child(oldChannelId).remove()
           return;
         } else {
           // delete permission

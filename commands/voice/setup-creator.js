@@ -29,17 +29,9 @@ module.exports.run = async function(msg, args, creator, prefix) {
     if(!channel) return msg.channel.send(embeds("❌ Channel tidak ditemukan!"));
     if (channel.type != "GUILD_VOICE") return msg.channel.send(embeds("❌ Channel bukan *Voice Channel*"));
     await db.child(msg.guild.id).child("voice").update({creator:channel.id})
-    const permit = channel.permissionOverwrites.cache
-    /*todo channel permission disable view message voice chat
-      SEND_MESSAGES
-      READ_MESSAGE_HISTORY
-      ADD_REACTIONS
-      ATTACH_FILES
-      USE_EXTERNAL_EMOJIS
-      USE_APPLICATION_COMMANDS
-    */
+    const permit = channel.permissionOverwrites.cache.filter(c=>c.type == "role" && !["984301622492541010","985762912062808174"].includes(c.id.toString()))
     permit.forEach(async (c)=> {
-      if (c.type === "role" && ![984301622492541010,985762912062808174].includes(c.id)) await channel.permissionOverwrites.edit(c.id, {
+      await channel.permissionOverwrites.edit(c.id, {
         "SEND_MESSAGES": false,
         "READ_MESSAGE_HISTORY": false,
         "ADD_REACTIONS": false,

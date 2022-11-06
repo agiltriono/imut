@@ -16,12 +16,10 @@ module.exports.execute = async function(interaction, client) {
       var ghost = temp.child("ghost").val()
       if (ghost === "yes") return interaction.editReply(ephemeral(`⚠️ Tidak dapat menggunakan **UNLOCK** ketika channel dalam keadaan tersembunyi, Gunakan **UNHIDE** terlebih dahulu.`));
       let channel = interaction.guild.channels.resolve(voiceChannel.id)
-     let permit = channel.permissionOverwrites.cache.filter(perm=> perm.type == "role" && ![984301622492541010,985762912062808174].includes(perm.id));
-     permit.forEach(async (perm)=> {
-      await channel.permissionOverwrites.edit(perm.id, {
-        'CONNECT': true
+      let permit = channel.permissionOverwrites.cache.filter(c=> c.type == "role" && !["984301622492541010","985762912062808174"].includes(c.id.toString()));
+      permit.forEach(async (c)=> {
+        await channel.permissionOverwrites.edit(c.id, {'CONNECT': true})
       })
-    })
-    await interaction.editReply(ephemeral(`🔓 Channel **${voiceChannel.name}** dibuka!`));
+      await interaction.editReply(ephemeral(`🔓 Channel **${voiceChannel.name}** dibuka!`));
   })
 }

@@ -22,7 +22,7 @@ module.exports.execute = async function(interaction, client) {
     await channel.permissionOverwrites.edit(interaction.user.id, {
       "VIEW_CHANNEL": true,
       "MANAGE_CHANNELS": true,
-      "MANAGE_ROLES": true,
+      "MANAGE_PERMISSIONS": true,
       "CONNECT": true
     })
     await channel.permissionOverwrites.cache.get(owner).delete()

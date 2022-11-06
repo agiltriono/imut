@@ -42,6 +42,8 @@ module.exports = {
         await channel.permissionOverwrites.set(main.permissionOverwrites.cache)
         await channel.permissionOverwrites.create(member.user.id, {
           "VIEW_CHANNEL": true,
+          "MANAGE_CHANNELS": true,
+          "MANAGE_GUILD": true,
           "CONNECT": true,
           "SEND_MESSAGES": true,
           "READ_MESSAGE_HISTORY": true,

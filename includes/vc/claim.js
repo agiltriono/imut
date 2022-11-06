@@ -19,9 +19,11 @@ module.exports.execute = async function(interaction, client) {
     await db.child(interaction.guild.id).child("voice").child("temp").child(voiceChannel.id).update({
       owner:interaction.user.id
     })
-    await channel.permissionOverwrites.create(interaction.user.id, {
-      'VIEW_CHANNEL': true,
-      'CONNECT': true
+    await channel.permissionOverwrites.edit(interaction.user.id, {
+      "VIEW_CHANNEL": true,
+      "MANAGE_CHANNELS": true,
+      "MANAGE_GUILD": true,
+      "CONNECT": true
     })
     await channel.permissionOverwrites.cache.get(owner).delete()
     await interaction.editReply(ephemeral(`🔑 Hak akses di berikan! sekarang kamu adalah **Owner**`));

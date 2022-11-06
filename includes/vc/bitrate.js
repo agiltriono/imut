@@ -27,6 +27,7 @@ module.exports.execute = async function(interaction, client) {
       if(temp.numChildren() === 0) return interaction.reply(ephemeral(`⛔ Kamu gak join di creator voice **${client.user.username}**!`));
       var owner = temp.child("owner").val()
       if (owner != interaction.user.id) return interaction.reply(ephemeral("⚠️ Akses ditolak! Kamu bukan owner!"));
+      return interaction.reply(`Kita sedang update fitur!\n\nCurrent Tier ${intrraction.guild.premiumTier}`)
       const option = await getServerBitrate(parseInt(interaction.guild.premiumTier))
       const menu = new MessageActionRow().addComponents(new MessageSelectMenu()
         .setCustomId("imut_vc_selectmenu_bitrate")

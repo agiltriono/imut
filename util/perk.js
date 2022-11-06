@@ -1,6 +1,6 @@
 exports.getServerBitrate = async function(tier) {
   // Thanks to discord for pointing di this out.
-  if(tier == 1){
+  if(tier == "TIER_1"){
     // 8,64,96,128 Bps
     return [
       { label: "8 Bps", value: "8000" },
@@ -8,7 +8,7 @@ exports.getServerBitrate = async function(tier) {
       { label: "96 Bps", value: "96000" },
       { label: "128 Bps", value: "128000" }
     ]
-  } else if(tier == 2){
+  } else if(tier == "TIER_2"){
     // 8,64,96,128,256 Bps
     return [
       { label: "8 Bps", value: "8000" },
@@ -17,7 +17,7 @@ exports.getServerBitrate = async function(tier) {
       { label: "128 Bps", value: "128000" },
       { label: "256 Bps", value: "256000" }
     ]
-  } else if(tier == 3){
+  } else if(tier == "TIER_3"){
     // 8,64,96,128,256,384 Bps
     return [
       { label: "8 Bps", value: "8000" },

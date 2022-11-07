@@ -40,17 +40,26 @@ module.exports.run = async function(msg, args, creator, prefix) {
     {id: "kick", emoji: "<:kick:1037336647785795626>",description:"Kick member dari channel."},
     {id: "info", emoji: "<:info1:1037336184499740694>",description:"Lihat info tentang channel."}
   ]
-  const information = name.map(command=>{
+  const exclude = ["hide","unhide"]
+  const information = name.filter(c=>!exclude.includes(c.id)).map(command=>{
     return {
       name: `${command.emoji} ${command.id.capitalize()}`,
       value: command.description
     }
   })
   const button = name.map(name => {
-    return new MessageButton().setCustomId("imut_vc_interface_"+name.id)
-    //.setLabel(name.id.capitalize())
-    .setEmoji(name.emoji)
-    .setStyle("SECONDARY")
+    if (exclude.includes(name.id)) {
+      return new MessageButton().setCustomId("imut_vc_interface_"+name.id)
+      //.setLabel(name.id.capitalize())
+      .setEmoji(name.emoji)
+      .setStyle("SECONDARY")
+      .setDisabled(true)
+    } else {
+      return new MessageButton().setCustomId("imut_vc_interface_"+name.id)
+      //.setLabel(name.id.capitalize())
+      .setEmoji(name.emoji)
+      .setStyle("SECONDARY")
+    } 
   })
   function chunk(obj, i) {
     let chunks = [];
@@ -81,17 +90,17 @@ module.exports.run = async function(msg, args, creator, prefix) {
     @mention: <@!*&*[0-9]+>
     #channel: <#[0-9]+>
   */
-  const ch = /^<#[0-9]*>$/;
+  const ch = /^[0-9]*$/;
   const rgx = /[\\<>@#&!]/gm
   if (ch.test(args[0])) {
-    let mention = args[0].replace(rgx, "")
+    let mention = args[0]
     let channel = msg.guild.channels.cache.get(mention)
     if(!channel) return msg.reply(embeds("❌ Channel tidak ditemukan!"));
     if (channel.type != "GUILD_TEXT") return msg.channel.send(embeds("❌ Channel bukan *Text Channel*"));
     await channel.send(contents)
     await msg.channel.send(embeds(`✅ Interface berhasil di buat pada <#${channel.id}>`))
   } else if (args[0] != undefined && args[0].toLowerCase() === "help") {
-    await msg.channel.send(embeds(`🛠 **Setup Interface**\n\`${prefix}setup-interface #text-channel\``));
+    await msg.channel.send(embeds(`🛠 **Setup Interface**\n\`${prefix}setup-interface ID_CHANNEL\``));
   } else {
     await msg.channel.send(embeds(`❌ **Salah perintah**\nTry It : \`${prefix}setup-interface help\``))
   }

@@ -26,7 +26,7 @@ module.exports = {
         let phrase = message.content.replace(/\n/g, ' ')
         let index = [...cc.val()]
         for(let i = 0; i < index.length;i++) {
-          if (phrase.startsWith(index[i].trigger) && index[i].wildcard === "no")) {
+          if (phrase.startsWith(index[i].trigger) && index[i].wildcard === "no") {
             return customHandler(message, index[i])
             break;
           }

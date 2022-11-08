@@ -7,8 +7,8 @@ module.exports.execute = async function(interaction, client, userId, args) {
   db.child(guild.id).once("value", async (server) => {
     const cc = [...server.child("cc").val()]
     const command = cc[cc.findIndex(c=>c.name === commandName)]
-    const wild_icon = command.wildcard == "yes" ? "❎" : "✅";
-    const wild_style = command.wildcard == "yes" ? "DANGER" : "SUCCESS";
+    const wild_icon = command.wildcard == "yes" ? "✅" : "❎";
+    const wild_style = command.wildcard == "yes" ? "SUCCESS" : "DANGER";
     const dismis = {
       type: 1,
       components: [

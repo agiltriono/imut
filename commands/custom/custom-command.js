@@ -45,8 +45,8 @@ module.exports.run = async function(msg, args, creator, prefix) {
           value: `${e.name}`
         }
       })
-      if (option.length > 25 || option.length === 50) {
-        const button = option.length == 50 ? limited : notlimited
+      if (option.length > 25 || option.length === 100) {
+        const button = option.length == 100 ? limited : notlimited
         const array = await chunk(option, 25)
         const custom = {
           embeds: [{
@@ -57,7 +57,7 @@ module.exports.run = async function(msg, args, creator, prefix) {
         }
         await msg.channel.send(custom)
       } else {
-        const button = option.length == 50 ? limited : notlimited
+        const button = option.length == 100 ? limited : notlimited
         const menu = new MessageActionRow().addComponents(new MessageSelectMenu()
           .setCustomId(`cc_selectmenu_edit_${creator.id}_1`)
           .setPlaceholder(`Edit Command`)

@@ -1,14 +1,20 @@
-const { database, ephemeral } = require(".././../util/util")
-const { MessageButton } = require("discord.js");
-const db = database.ref("guild");
-module.exports.execute = async function(interaction, client, userId) {
+const { database, embeds } = require(".././../util/util")
+const { MessageButton } = require("discord.js")
+const db = database.ref("guild")
+module.exports.execute = async function(interaction, client, userId, args) {
   const guild = interaction.guild
-  const commandName = interaction.values[0]
+  const commandName = args[2]
   db.child(guild.id).once("value", async (server) => {
-    var cc = [...server.child('cc').val()]
-    var command = cc[cc.findIndex(c=>c.name === commandName)]
+    const cc = [...server.child("cc").val()]
+    const command = cc[cc.findIndex(c=>c.name === commandName)]
     const wild_icon = command.wildcard == "yes" ? "❎" : "✅";
     const wild_style = command.wildcard == "yes" ? "DANGER" : "SUCCESS";
+    const dismis = {
+      type: 1,
+      components: [
+        new MessageButton().setCustomId('cc_button_close_'+userId).setLabel("Dismis").setEmoji("🗑").setStyle('DANGER')
+      ]
+    }
     if (command.type === "content") {
       var row1 = {
       type: 1,
@@ -28,11 +34,17 @@ module.exports.execute = async function(interaction, client, userId) {
         new MessageButton().setCustomId('cc_button_close_'+userId+"_"+commandName).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
         ]
       }
-      await interaction.update({
-        content: command.content,
-        embeds: [],
-        components: [row1,row2]
-      })
+      if (command.wildcard === "yes") {
+        cc[cc.findIndex(c=>c.name === commandName)].wildcard = "no"
+        await db.child(guild.id).update({cc:cc})
+        await interaction.update({components: [row1,row2]})
+        await interaction.message.reply(Object.assign({},embeds(`❎ Wildcard ${commandName} dimatikan.`), {components: [dismis]}))
+      } else {
+        cc[cc.findIndex(c=>c.name === commandName)].wildcard = "yes"
+        await db.child(guild.id).update({cc:cc})
+        await interaction.update({components: [row1,row2]})
+        await interaction.message.reply(Object.assign({},embeds(`✅ Wildcard **${commandName}** diaktifkan.`), {components: [dismis]}))
+      }
     } else {
       var row1 = {
         type: 1,
@@ -61,11 +73,17 @@ module.exports.execute = async function(interaction, client, userId) {
           new MessageButton().setCustomId('cc_button_close_'+userId+"_"+commandName).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
         ]
       }
-      await interaction.update({
-        content: null,
-        embeds: [command.embed],
-        components: [row1,row2,row3]
-      })
+      if (command.wildcard === "yes") {
+        cc[cc.findIndex(c=>c.name === commandName)].wildcard = "no"
+        await db.child(guild.id).update({cc:cc})
+        await interaction.update({components: [row1,row2,row3]})
+        await interaction.message.reply(Object.assign({},embeds(`❎ Wildcard ${commandName} dimatikan.`), {components: [dismis]}))
+      } else {
+        cc[cc.findIndex(c=>c.name === commandName)].wildcard = "yes"
+        await db.child(guild.id).update({cc:cc})
+        await interaction.update({components: [row1,row2,row3]})
+        await interaction.message.reply(Object.assign({},embeds(`✅ Wildcard **${commandName}** diaktifkan.`), {components: [dismis]}))
+      }
     }
   })
 }

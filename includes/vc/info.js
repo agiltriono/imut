@@ -1,4 +1,4 @@
-const { database, embeds, ephemeral } = require(".././../util/util")
+const { database, embeds, ephemeral, color } = require(".././../util/util")
 const db = database.ref("guild")
 module.exports.execute = async function(interaction, client) {
   // voice > temp > userId

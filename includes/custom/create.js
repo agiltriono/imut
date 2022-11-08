@@ -24,6 +24,7 @@ module.exports.execute = async function(interaction, client, userId) {
     components: [
       new MessageButton().setCustomId('cc_button_text_'+userId+"_"+commandName).setEmoji("🖍").setLabel("Edit Text").setStyle('PRIMARY'),
       new MessageButton().setCustomId('cc_button_trigger_'+userId+"_"+commandName).setEmoji("⁉️").setLabel("Edit Trigger").setStyle('PRIMARY'),
+      new MessageButton().setCustomId('cc_button_wildcard_'+userId+"_"+commandName).setEmoji("✅").setLabel("Wildcard").setStyle("SUCCESS"),
       new MessageButton().setCustomId('cc_button_embed_'+userId+"_"+commandName).setEmoji("🔁").setLabel("Rich Embed").setStyle('PRIMARY'),
       new MessageButton().setCustomId('cc_button_reset_'+userId+"_"+commandName).setEmoji("♻️").setLabel("Reset").setStyle('PRIMARY')
       ]

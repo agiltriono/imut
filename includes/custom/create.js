@@ -15,7 +15,8 @@ module.exports.execute = async function(interaction, client, userId) {
         type: "content",
         trigger: trigger,
         content : "Pratinjau Text",
-        embed : {description: "Pratinjau Embed"}
+        embed : {description: "Pratinjau Embed"},
+        wildcard: "no"
       }
       cc.push(init)
       const commandName = init.name

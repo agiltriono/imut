@@ -31,7 +31,7 @@ module.exports = {
             break;
           }
           if (phrase.includes(index[i].trigger) && index[i].wildcard === "yes") {
-            
+            return customHandler(message, index[i])
             break;
           }
         }

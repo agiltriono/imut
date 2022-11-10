@@ -3,7 +3,7 @@ module.exports.execute = async function(interaction, client, userId) {
   if (interaction.customId.includes("welcomer_modal_")) {
     const field = interaction.fields
     const value = field.getTextInputValue('welcomer_modal_content_input');
-    await interaction.update({ content: content })
+    await interaction.update({ content: value })
   } else {
     const modal = new Modal()
       .setCustomId('welcomer_modal_content_'+userId)

@@ -157,7 +157,7 @@ exports.Welcomer = class Welcomer {
   }
 }
 exports.rich = function (e, n) {
-  const obj = e.length != 0 ? e : {}
+  const obj = e.length != 0 ? e[0] : {}
   return Object.assign({},obj,n)
 }
 exports.timeconvert = function(secs) {

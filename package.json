@@ -1,16 +1,16 @@
 {
-  "name": "imut",
+  "name": "shayang",
   "version": "1.0.0",
   "description": "Bot khusus untuk imut server.",
   "main": "index.js",
-  "homepage": "https://github.com/agiltriono/imut",
-  "repository": "github:agiltriono/imut",
-  "bugs": "https://github.com/agiltriono/imut/issues",
+  "homepage": "https://github.com/agiltriono/shayang",
+  "repository": "github:agiltriono/shayang",
+  "bugs": "https://github.com/agiltriono/shayang/issues",
   "scripts": {
     "start": "node index.js",
     "node-version": "node --version"
   },
-  "author": "XLAND <agiltriono@gmail.com>",
+  "author": "agiltriono <agiltriono@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^13.12.0",

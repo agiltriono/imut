@@ -39,6 +39,7 @@ module.exports.execute = async function(interaction, client, userId) {
       }))
     } else {
       await interaction.update({
+        embeds:[],
         components: [row1,row2,row3]
       })
     }

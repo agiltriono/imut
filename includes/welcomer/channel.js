@@ -1,5 +1,5 @@
 const { MessageActionRow, MessageSelectMenu } = require("discord.js");
-const { database, clear, embeds, remove, color } = require(".././../util/util");
+const { database, color } = require(".././../util/util");
 const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId) {
   const guild = interaction.guild
@@ -21,7 +21,7 @@ module.exports.execute = async function(interaction, client, userId) {
       const menu = await chunk(option, 25, userId);
       const custom = {
         embeds: [{
-          color: "#f136f7",
+          color: color(),
           description: `**Pilih Channel**`
         }],
         components: menu,
@@ -35,7 +35,7 @@ module.exports.execute = async function(interaction, client, userId) {
         .addOptions(option));
       const custom = {
         embeds: [{
-          color: "#f136f7",
+          color: color(),
           description: `**Pilih Channel**`
         }],
         components: [menu],

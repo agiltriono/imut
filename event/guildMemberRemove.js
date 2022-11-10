@@ -2,6 +2,7 @@ const { Welcomer } = require("../util/util");
 module.exports = {
   name : "guildMemberRemove",
   async execute(member, client) {
+    /*
     client.db.child(member.guild.id).once('value', async (server) => {
       const gb = server.child("gb");
       const embed = gb.child('embed');
@@ -12,6 +13,6 @@ module.exports = {
       const comer = new Welcomer(member, embed.val())
       const well = await comer.init()
       await channel.send(well)
-    })
+    })*/
   }
 }

@@ -46,8 +46,8 @@ module.exports = {
           }
           //petang
           if (zone > 18 && zone <= 19) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam") || string.includes("dini")) return mesaage.channel.send(shuffle.pick(["Petang akak!","Inikan petang ish","bodo amat ah akak capek", "Apan sih petang juga", "Setiap petang queen pasti selalu semangat tau!"], {"picks":1}));
-            if (string.includes("petang")) return message.channel.send("Met Petang! 👋");
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam") || string.includes("dini")) return mesaage.channel.send(shuffle.pick(["Petang akak!","Inikan petang ish","bodo amat ah akak capek", "Apaan sih petang juga", "Setiap menjelang malam queen pasti selalu semangat tau!"], {"picks":1}));
+            if (string.includes("petang")) return message.channel.send("Menjelang malam 💬");
           }
           //malam
           if (zone > 19 && zone <= 24) {
@@ -56,8 +56,8 @@ module.exports = {
           }
           // dini
           if (zone >= 0 && zone <= 3) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam")) return message.channel.send(shuffle.pick(["Dini hari ishh!","Dini bukan dana","bodo amat ah", "Apa sih"], {"picks":1}));
-            if(string.includes("malam")) return message.channel.send("Selamat malam 🙏");
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam")) return message.channel.send(shuffle.pick(["Dini bukan dana","bodo amat ah", "Apa sih", "Jangan nakal ya sama shinta ! awas aja shayang gak mau temenan lagi : (", "kok gitu sih"], {"picks":1}));
+            if(string.includes("dini")) return message.channel.send("Menjelang pagi 💬");
           }
         } else if(cc.exists()) {
           let phrase = message.content.replace(/\n/g, ' ')

@@ -31,27 +31,32 @@ module.exports = {
         if (string.includes("pagi")|| string.includes("siang") || string.includes("sore") || string.includes("malam")) {
           //pagi
           if (zone > 5 && zone <= 10) {
-            if (string.includes("siang") || string.includes("sore") || string.includes("malam")) return message.channel.send(shuffle.pick(["Pagi Bego!","Jam Woy Liat","bodo amat"], {"picks":1}));
+            if (string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Pagi akak!","Ini kan pagi akak","Gak tau ah", "Maybe, besok jalan sama Queensyg","Oh Iyah, mungkin ke china sama rabellan","Aku sibuk kalo pagi"], {"picks":1}));
             if(string.includes("pagi")) return message.channel.send("Pagi juga 👋");
           }
           //siang
           if (zone > 10 && zone <= 15) {
-            if (string.includes("pagi") || string.includes("sore") || string.includes("malam")) return message.channel.send(shuffle.pick(["Siang dodol!","Hidup nya di goa ? ini siang ishh","bodo amat"], {"picks":1}));
+            if (string.includes("pagi") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Siang dodol!","Hmmm","bodo ah", "mau tidur tapi siang", " Ke oyo ?"], {"picks":1}));
             if(string.includes("siang")) return message.channel.send("Siang kak,");
           }
           //sore
           if (zone > 15 && zone <= 18) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("malam")) return message.channel.send(shuffle.pick(["Sore tai!","Hidup nya di goa ? ini sore woy","bodo amat ah capek"], {"picks":1}));
+            if (string.includes("pagi") || string.includes("siang") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Sore akak!","Juling ? sore cok","ihh","Ohh gitu", "Yaudah iya", " Galau ya ?"], {"picks":1}));
             if(string.includes("sore")) return message.channel.send("Sore gaes 😉");
           }
           //petang
           if (zone > 18 && zone <= 19) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam")) return mesaage.channel.send(shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek"], {"picks":1}));
-            if (string.includes("petang")) return message.channel.send("Met Petang 👋");
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam") || string.includes("dini")) return mesaage.channel.send(shuffle.pick(["Petang akak!","Inikan petang ish","bodo amat ah akak capek", "Apan sih petang juga", "Setiap petang queen pasti selalu semangat tau!"], {"picks":1}));
+            if (string.includes("petang")) return message.channel.send("Met Petang! 👋");
           }
           //malam
           if (zone > 19 && zone <= 24) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang")) return message.channel.send(shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek", "Muka kamu kaya matahari 🤣"], {"picks":1}));
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("dini")) return message.channel.send(shuffle.pick(["Jam rusak ?!","Malam njir","Apa iyah ?", "Au ah gelap"], {"picks":1}));
+            if(string.includes("malam")) return message.channel.send("Selamat malam 🙏");
+          }
+          // dini
+          if (zone >= 0 && zone <= 3) {
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam")) return message.channel.send(shuffle.pick(["Dini hari ishh!","Dini bukan dana","bodo amat ah", "Apa sih"], {"picks":1}));
             if(string.includes("malam")) return message.channel.send("Selamat malam 🙏");
           }
         } else if(cc.exists()) {

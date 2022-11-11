@@ -9,10 +9,10 @@ module.exports.execute = async function(interaction, client, userId) {
     content: content,
     embeds: embed[0]
   });
-  if (content.length == 0 && embed.length != 0) await db.child(guild.id).child("wc").child("m").set({
-    embeds: embed[0]
-  });
   if(content.length != 0 && embed.length === 0) await db.child(guild.id).child("wc").child("m").set({
+    content: content
+  });
+  if (content.length == 0 && embed.length != 0) await db.child(guild.id).child("wc").child("m").set({
     embeds: embed[0]
   });
   await interaction.reply(ephemeral("✅ Pengaturan berhasil di simpan.\nKlik tombol **Test** untuk melihat pratinjau.\nKlik **Tutup** untuk menutup pengaturan."))

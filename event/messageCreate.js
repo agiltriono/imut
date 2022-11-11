@@ -31,27 +31,27 @@ module.exports = {
         if (string.includes("pagi")|| string.includes("siang") || string.includes("sore") || string.includes("malam")) {
           //pagi
           if (zone > 5 && zone <= 10) {
-            if (string.includes("siang") || string.includes("sore") || string.includes("malam")) return shuffle.pick(["Pagi Bego!","Jam Woy Liat","bodo amat"], {"picks":1});
+            if (string.includes("siang") || string.includes("sore") || string.includes("malam")) return message.channel.send(shuffle.pick(["Pagi Bego!","Jam Woy Liat","bodo amat"], {"picks":1}));
             if(string.includes("pagi")) return message.channel.send("Pagi juga 👋");
           }
           //siang
           if (zone > 10 && zone <= 15) {
-            if (string.includes("pagi") || string.includes("sore") || string.includes("malam")) return shuffle.pick(["Siang dodol!","Hidup nya di goa ? ini siang ishh","bodo amat"], {"picks":1});
+            if (string.includes("pagi") || string.includes("sore") || string.includes("malam")) return message.channel.send(shuffle.pick(["Siang dodol!","Hidup nya di goa ? ini siang ishh","bodo amat"], {"picks":1}));
             if(string.includes("siang")) return message.channel.send("Siang kak,");
           }
           //sore
           if (zone > 15 && zone <= 18) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("malam")) return shuffle.pick(["Sore tai!","Hidup nya di goa ? ini sore woy","bodo amat ah capek"], {"picks":1});
+            if (string.includes("pagi") || string.includes("siang") || string.includes("malam")) return message.channel.send(shuffle.pick(["Sore tai!","Hidup nya di goa ? ini sore woy","bodo amat ah capek"], {"picks":1}));
             if(string.includes("sore")) return message.channel.send("Sore gaes 😉");
           }
           //petang
           if (zone > 18 && zone <= 19) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam")) return shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek"], {"picks":1});
-            if (string.includes("petang")) return message.channel.send("Petang! 👋");
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam")) return mesaage.channel.send(shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek"], {"picks":1}));
+            if (string.includes("petang")) return message.channel.send("Met Petang 👋");
           }
           //malam
           if (zone > 19 && zone <= 24) {
-            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang")) return shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek", "Muka kamu kaya matahari 🤣"], {"picks":1});
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang")) return message.channel.send(shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek", "Muka kamu kaya matahari 🤣"], {"picks":1}));
             if(string.includes("malam")) return message.channel.send("Selamat malam 🙏");
           }
         } else if(cc.exists()) {

@@ -28,7 +28,7 @@ module.exports = {
         var zone = date.toLocaleString("id-ID", {timeZone: "Asia/Jakarta", hours12: false}).split(" ")[1].split(".")[0]
         const time = zone.startsWith("0") ? parseInt(zone.replace("0", "")) : parseInt(zone)
         var string = message.content.toLowerCase()
-        if (string.includes("pagi")|| string.includes("siang") || string.includes("sore") || string.includes("malam")) {
+        if (string.includes("pagi")|| string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) {
           //pagi
           if (zone > 5 && zone <= 10) {
             if (string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Pagi akak!","Ini kan pagi akak","Gak tau ah", "Maybe, besok jalan sama Queensyg","Oh Iyah, mungkin ke china sama rabellan","Aku sibuk kalo pagi"], {"picks":1}));

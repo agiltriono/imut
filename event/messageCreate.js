@@ -30,27 +30,27 @@ module.exports = {
         var string = message.content.toLowerCase()
         if (string.includes("pagi")|| string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) {
           //pagi
-          if (zone > 5 && zone <= 10) {
+          if (zone >= 5 && zone <= 10) {
             if (string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Pagi akak!","Ini kan pagi akak","Gak tau ah", "Maybe, besok jalan sama Queensyg","Oh Iyah, mungkin ke china sama rabellan","Aku sibuk kalo pagi"], {"picks":1}));
             if(string.includes("pagi")) return message.channel.send("Pagi juga 👋");
           }
           //siang
-          if (zone > 10 && zone <= 15) {
+          if (zone >= 11 && zone <= 14) {
             if (string.includes("pagi") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Siang dodol!","Hmmm","bodo ah", "mau tidur tapi siang", " Ke oyo ?"], {"picks":1}));
             if(string.includes("siang")) return message.channel.send("Siang kak,");
           }
           //sore
-          if (zone > 15 && zone <= 18) {
+          if (zone >= 15 && zone <= 17) {
             if (string.includes("pagi") || string.includes("siang") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Sore akak!","Juling ? sore cok","ihh","Ohh gitu", "Yaudah iya", " Galau ya ?"], {"picks":1}));
             if(string.includes("sore")) return message.channel.send("Sore gaes 😉");
           }
           //petang
-          if (zone > 18 && zone <= 19) {
+          if (zone >= 18 && zone <= 19) {
             if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam") || string.includes("dini")) return mesaage.channel.send(shuffle.pick(["Petang akak!","Inikan petang ish","bodo amat ah akak capek", "Apaan sih petang juga", "Setiap menjelang malam queen pasti selalu semangat tau!"], {"picks":1}));
             if (string.includes("petang")) return message.channel.send("Menjelang malam 💬");
           }
           //malam
-          if (zone > 19 && zone <= 24) {
+          if (zone >= 20 && zone <= 24) {
             if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("dini")) return message.channel.send(shuffle.pick(["Jam rusak ?!","Malam njir","Apa iyah ?", "Au ah gelap"], {"picks":1}));
             if(string.includes("malam")) return message.channel.send("Selamat malam 🙏");
           }

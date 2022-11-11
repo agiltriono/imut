@@ -1,4 +1,5 @@
 const { database, timeconvert } = require("../util/util");
+const shuffle = require("../util/shuffle-array")
 const customHandler = require("../util/customHandler")
 const help = require("../includes/help");
 const db = database.ref("guild");
@@ -42,10 +43,14 @@ module.exports = {
         const isBotMention = botmention.length === usermention.length && usermention === botmention;
         
         if (isBotMention && viewsend) {
-            await message.react("😤")
-            return message.reply("Apa sih ngetag ngetag aku 🔨").then(async m => {
-              await m.react("❤")
-            });
+            const respond = [
+              "@Shintaa",
+              "Ssshhhhhh..",
+              "Aku di kangenin...",
+              "Aku cantik ya ciee di cariin 🥰",
+              "Hmmmm.."
+            ]
+            return message.reply(shuffle.pick(respond, {'picks': 1}))
         }
       }
       if (!message.content.startsWith(prefix)) return;

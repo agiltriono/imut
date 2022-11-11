@@ -23,17 +23,49 @@ module.exports = {
       const manages = message.guild.me.permissions.has("MANAGE_MESSAGES") && message.guild.me.permissions.has("MANAGE_CHANNELS");
       const hasPerm = viewsend && manages;
       if(blockedchannel.exists() && blockedchannel.val().includes(message.channel.id)) return;
-      if(!command && command != helpString && cc.exists()) {
-        let phrase = message.content.replace(/\n/g, ' ')
-        let index = [...cc.val()]
-        for(let i = 0; i < index.length;i++) {
-          if ((phrase.startsWith(index[i].trigger) && index[i].wildcard === "no") || (phrase.toLowerCase().startsWith(index[i].trigger.toLowerCase()) && index[i].wildcard === "no")) {
-            return customHandler(message, index[i])
-            break;
+      if (!command && command != helpString) {
+        var date = new Date()
+        var zone = date.toLocaleString("id-ID", {timeZone: "Asia/Jakarta", hours12: false}).split(" ")[1].split(".")[0]
+        const time = zone.startsWith("0") ? parseInt(zone.replace("0", "")) : parseInt(zone)
+        var string = message.content.toLowerCase()
+        if (string.includes("pagi")|| string.includes("siang") || string.includes("sore") || string.includes("malam")) {
+          //pagi
+          if (zone > 5 && zone <= 10) {
+            if (string.includes("siang") || string.includes("sore") || string.includes("malam")) return shuffle.pick(["Pagi Bego!","Jam Woy Liat","bodo amat"], {"picks":1});
+            if(string.includes("pagi")) return message.channel.send("Pagi juga 👋");
           }
-          if ((phrase.includes(index[i].trigger) && index[i].wildcard === "yes") || (phrase.toLowerCase().includes(index[i].trigger.toLowerCase()) && index[i].wildcard === "yes")) {
-            return customHandler(message, index[i])
-            break;
+          //siang
+          if (zone > 10 && zone <= 15) {
+            if (string.includes("pagi") || string.includes("sore") || string.includes("malam")) return shuffle.pick(["Siang dodol!","Hidup nya di goa ? ini siang ishh","bodo amat"], {"picks":1});
+            if(string.includes("siang")) return message.channel.send("Siang kak,");
+          }
+          //sore
+          if (zone > 15 && zone <= 18) {
+            if (string.includes("pagi") || string.includes("siang") || string.includes("malam")) return shuffle.pick(["Sore tai!","Hidup nya di goa ? ini sore woy","bodo amat ah capek"], {"picks":1});
+            if(string.includes("sore")) return message.channel.send("Sore gaes 😉");
+          }
+          //petang
+          if (zone > 18 && zone <= 19) {
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("malam")) return shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek"], {"picks":1});
+            if (string.includes("petang")) return message.channel.send("Petang! 👋");
+          }
+          //malam
+          if (zone > 19 && zone <= 24) {
+            if (string.includes("pagi") || string.includes("siang") || string.includes("sore") || string.includes("petang")) return shuffle.pick(["Petang coy!","Inikan petang ish","bodo amat ah capek", "Muka kamu kaya matahari 🤣"], {"picks":1});
+            if(string.includes("malam")) return message.channel.send("Selamat malam 🙏");
+          }
+        } else if(cc.exists()) {
+          let phrase = message.content.replace(/\n/g, ' ')
+          let index = [...cc.val()]
+          for(let i = 0; i < index.length;i++) {
+            if ((phrase.startsWith(index[i].trigger) && index[i].wildcard === "no") || (phrase.toLowerCase().startsWith(index[i].trigger.toLowerCase()) && index[i].wildcard === "no")) {
+              return customHandler(message, index[i])
+              break;
+            }
+            if ((phrase.includes(index[i].trigger) && index[i].wildcard === "yes") || (phrase.toLowerCase().includes(index[i].trigger.toLowerCase()) && index[i].wildcard === "yes")) {
+              return customHandler(message, index[i])
+              break;
+            }
           }
         }
       }

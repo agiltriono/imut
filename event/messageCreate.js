@@ -86,7 +86,7 @@ module.exports = {
           let index = [...cc.val()]
           for(let i = 0; i < index.length;i++) {
             if ((phrase.startsWith(index[i].trigger) && index[i].wildcard === "no") || (phrase.toLowerCase().startsWith(index[i].trigger.toLowerCase()) && index[i].wildcard === "no")) {
-              if (index[i].channel === message.channelId) return customHandler(message, index[i])
+              if (index[i].channel.includes(message.channelId)) return customHandler(message, index[i])
               break;
             }
             if ((phrase.includes(index[i].trigger) && index[i].wildcard === "yes") || (phrase.toLowerCase().includes(index[i].trigger.toLowerCase()) && index[i].wildcard === "yes")) {

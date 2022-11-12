@@ -46,7 +46,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
       return [
         new MessageActionRow().addComponents(new MessageSelectMenu()
           .setCustomId(`setting_selectmenu_blockchannel_${creator.id}_1`)
-          .setPlaceholder(`Daftar Channel 1`)
+          .setPlaceholder(`Pilih Channel 1`)
           .setMinValues(1)
   	      .setMaxValues(option.length)
           .addOptions(option))

@@ -14,6 +14,7 @@ module.exports.execute = async function(interaction, client, userId) {
         name: name,
         type: "content",
         trigger: trigger,
+        channel: "",
         content : "Pratinjau Text",
         embed : {description: "Pratinjau Embed"},
         wildcard: "no"
@@ -33,6 +34,7 @@ module.exports.execute = async function(interaction, client, userId) {
     var row2 = {
       type:1,
       components: [
+        new MessageButton().setCustomId('cc_button_channel_'+userId+"_"+commandName).setEmoji("💬").setLabel("Channel").setStyle('PRIMARY'),
         new MessageButton().setCustomId('cc_button_save_'+userId+"_"+commandName).setEmoji("✅").setLabel("Save").setStyle('SUCCESS'),
         new MessageButton().setCustomId('cc_button_delete_'+userId+"_"+commandName).setLabel("Hapus").setEmoji("🗑").setStyle('DANGER'),
         new MessageButton().setCustomId('cc_button_close_'+userId+"_"+commandName).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
@@ -48,7 +50,7 @@ module.exports.execute = async function(interaction, client, userId) {
   } else {
     db.child(guild.id).once("value", async (server) => {
       const cc = server.child("cc").exists() ? [...server.child("cc").val()] : []
-      if(cc.length === 50) return interaction.reply(ephemeral("⚠️ Limit Data Auto Respond Tercapai."));
+      if(cc.length === 100) return interaction.reply(ephemeral("⚠️ Limit Data Auto Respond Tercapai."));
       const modal = new Modal()
         .setCustomId('cc_modal_create_'+userId)
         .setTitle('Create New')

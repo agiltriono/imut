@@ -1,4 +1,4 @@
-const { database, PREFIX, fdb, clear, embeds, remove } = require(".././../util/util");
+const { database, PREFIX, clear, embeds, remove } = require(".././../util/util");
 const db = database.ref("guild");
 module.exports.help = {
     name: "prefix",

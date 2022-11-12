@@ -42,7 +42,7 @@ module.exports.run = async function(msg, args, creator, prefix) {
         "SEND_TTS_MESSAGES": false
       });
     })
-    await msg.channel.send(embeds(`✅ Creator channel berhasil di setel ke ${channel.name}.`))
+    await msg.channel.send(embeds(`✅ Creator channel berhasil di setel ke <#${channel.id}>`))
   } else if (args[0] != undefined && args[0].toLowerCase() === "help") {
     await msg.channel.send(embeds(`🛠 **Setup Creator**\n\`${prefix}setup-creator ID_CHANNEL\``));
   } else {

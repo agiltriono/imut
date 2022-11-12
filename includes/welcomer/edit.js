@@ -34,9 +34,25 @@ module.exports.execute = async function(interaction, client, userId) {
       ]
     }
     if (msg.exists()) {
-      await interaction.update(Object.assign({},msg.val(),{
-        components: [row1,row2,row3]
-      }))
+      if(msg.embeds.exists() && msg.content.exists()) {
+        await interaction.update({
+          content: msg.content.val(),
+          embeds: [msg.embeds.val()],
+          components: [row1,row2,row3]
+        })
+      }
+      if(!msg.embeds.exists() && msg.content.exists()) {
+        await interaction.update({
+          content: msg.content.val(),
+          components: [row1,row2,row3]
+        })
+      }
+      if(msg.embeds.exists() && !msg.content.exists()) {
+        await interaction.update({
+          embeds: [msg.embeds.val()],
+          components: [row1,row2,row3]
+        })
+      }
     } else {
       await interaction.update({
         embeds:[],

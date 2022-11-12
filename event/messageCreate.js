@@ -41,7 +41,7 @@ module.exports = {
       const hasPerm = viewsend && manages;
       const str = message.content.toLowerCase()
       if (str.includes("http") && !command && command != helpString) {
-        return linkremover(message, link_remover, temp)
+        return linkremover(message, link_remover, vc)
       }
       if(blockedchannel.exists() && blockedchannel.val().includes(message.channel.id)) return;
       if (!str.includes("http") && !command && command != helpString) {
@@ -50,7 +50,7 @@ module.exports = {
         const time = zone.startsWith("0") ? parseInt(zone.replace("0", "")) : parseInt(zone)
         var string = str
         if (string.includes("pagi")|| string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) {
-          if (message.channelId != timeres) return;
+          if (message.channelId != timeresponder) return;
           //pagi
           if (zone >= 5 && zone <= 10) {
             if (string.includes("siang") || string.includes("sore") || string.includes("petang") || string.includes("malam") || string.includes("dini")) return message.channel.send(shuffle.pick(["Pagi akak!","Ini kan pagi akak","Gak tau ah", "Maybe, besok jalan sama Queensyg","Oh Iyah, mungkin ke china sama rabellan","Aku sibuk kalo pagi"], {"picks":1}));

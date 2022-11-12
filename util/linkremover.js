@@ -13,8 +13,7 @@ module.exports = async function linkremover(msg, text, voice){
     ]
     if(!filter.some(c => content.includes(c))) return await msg.delete();
   } else if (text.exists()) {
-      const arr = [...text.val()]
-      if(arr.some(c => c.channel.includes(channelId) && c.link.split(",").some(a => content.includes(a)))) return await msg.delete()
-    }
+    const arr = [...text.val()]
+    if(arr.some(c => c.channel.includes(channelId) && c.link.split(",").some(a => content.includes(a)))) return await msg.delete()
   }
 }

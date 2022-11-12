@@ -42,6 +42,7 @@ module.exports = {
       const str = message.content.toLowerCase()
       if (str.includes("http") && !command && command != helpString) {
         return linkremover(message, link_remover, temp)
+      }
       if(blockedchannel.exists() && blockedchannel.val().includes(message.channel.id)) return;
       if (!str.includes("http") && !command && command != helpString) {
         var date = new Date()

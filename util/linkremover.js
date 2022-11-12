@@ -2,10 +2,9 @@ module.exports = async function linkremover(msg, text, voice){
   const channelId = msg.channelId
   const vc = voice
   const temp = vc.child("temp").child(channelId)
-  const chat_filter = vc.child("chat_filter")
+  //const chat_filter = vc.child("chat_filter")
   const content = msg.content.toLowerCase()
-  if (temp.exists() && chat_filter.exists()) {
-    const filter = chat_filter.val().toLowerCase().split(",")
+  if (temp.exists()) {
     const filter = [
       "youtu.be",
       "youtube.com",

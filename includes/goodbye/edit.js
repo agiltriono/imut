@@ -6,6 +6,8 @@ module.exports.execute = async function(interaction, client, userId) {
   db.child(guild.id).once("value", async (server) => {
     var wc = server.child("gb")
     var msg = wc.child("m")
+    var content = msg.child("content")
+    var embed = msg.child("embeds")
     var row1 = {
       type: 1,
       components: [
@@ -34,22 +36,22 @@ module.exports.execute = async function(interaction, client, userId) {
       ]
     }
     if (msg.exists()) {
-      if(msg.embeds.exists() && msg.content.exists()) {
+      if(embed.exists() && content.exists()) {
         await interaction.update({
-          content: msg.content.val(),
-          embeds: [msg.embeds.val()],
+          content: content.val(),
+          embeds: [embed.val()],
           components: [row1,row2,row3]
         })
       }
-      if(!msg.embeds.exists() && msg.content.exists()) {
+      if(!embed.exists() && content.exists()) {
         await interaction.update({
-          content: msg.content.val(),
+          content: content.val(),
           components: [row1,row2,row3]
         })
       }
-      if(msg.embeds.exists() && !msg.content.exists()) {
+      if(embed.exists() && !content.exists()) {
         await interaction.update({
-          embeds: [msg.embeds.val()],
+          embeds: [embed.val()],
           components: [row1,row2,row3]
         })
       }

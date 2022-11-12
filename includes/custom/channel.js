@@ -58,9 +58,9 @@ module.exports.execute = async function(interaction, client, userId, args) {
     db.child(guild.id).once("value", async (s)=> {
       const cc = [...s.child("cc").val()]
       const command = cc[cc.findIndex(c=>c.name === commandName)]
-      const ch = command.channel.split(",")
+      const ch = command.channel.trim().length != 0 ? command.channel.trim().split(",") : []
       const list = function () {
-        return ch.length != 0 ? ch.map(c=> `<#${c}>`).join(",") : "Tidak ada channel"
+        return ch.length != 0 ? ch.split(",").map(c=> `<#${c}>`).join(",") : "Tidak ada channel"
       }
       const channels = await guild.channels.cache.filter(c=>c.type === "GUILD_TEXT")
       const tutup = [{

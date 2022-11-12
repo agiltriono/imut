@@ -90,7 +90,7 @@ module.exports = {
               break;
             }
             if ((phrase.includes(index[i].trigger) && index[i].wildcard === "yes") || (phrase.toLowerCase().includes(index[i].trigger.toLowerCase()) && index[i].wildcard === "yes")) {
-              if (index[i].channel === message.channelId) return customHandler(message, index[i])
+              if (index[i].channel.includes(message.channelId)) return customHandler(message, index[i])
               break;
             }
           }

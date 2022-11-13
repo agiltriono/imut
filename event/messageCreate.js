@@ -40,11 +40,10 @@ module.exports = {
       const manages = message.guild.me.permissions.has("MANAGE_MESSAGES") && message.guild.me.permissions.has("MANAGE_CHANNELS");
       const hasPerm = viewsend && manages;
       const str = message.content.toLowerCase()
-      if (str.includes("http") && !command && command != helpString) {
-        return linkremover(message, link_remover, vc)
+      if ((str.includes("http://") || str.includes("https://")) && !command && command != helpString) {
+        await linkremover(message, link_remover, vc)
       }
-      if(blockedchannel.exists() && blockedchannel.val().includes(message.channel.id)) return;
-      if (!str.includes("http") && !command && command != helpString) {
+      if (!command && command != helpString) {
         var date = new Date()
         var zone = date.toLocaleString("id-ID", {timeZone: "Asia/Jakarta", hours12: false}).split(" ")[1].split(".")[0]
         const time = zone.startsWith("0") ? parseInt(zone.replace("0", "")) : parseInt(zone)
@@ -118,7 +117,7 @@ module.exports = {
         }
       if(!command && command != helpString) return;
       if (!hasPerm) return;
-      
+      if(blockedchannel.exists() && blockedchannel.val().includes(message.channel.id)) return;
       try {
           command.run(message, args, creator, prefix);
         

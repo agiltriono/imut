@@ -20,7 +20,14 @@ module.exports.run = async (msg, args, creator, prefix) => {
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const rgx = /^[a-zA-Z]+$/
   const guild = msg.guild
-  if (args[0] != undefined && args[0].toLowerCase() === "add") {
+  if (args[0] != undefined && args[0].toLowerCase() === "list") {
+    db.child(guild.id).once("value", async (s) =>{
+      const src = s.child("voice").child("allow_link")
+      const list = src.exists() ? src.val().trim().split(",") : []
+      if (list.length === 0) return await msg.channel.send(embeds(`⚠️ Daftar kosong!`));
+      await msg.channel.send(embeds(`**__LIST URL__**\n\`${list.join(",")}\``))
+    })
+  } else if (args[0] != undefined && args[0].toLowerCase() === "add") {
     // add
     if (args[1] === undefined) return await msg.channel.send(embeds(`❌ **Salah perintah**\nTry It : \`${prefix}vc-link help\``));
     let link = args[1].toLowerCase().trim()
@@ -42,7 +49,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
       if (list.length === 0) return await msg.channel.send(embeds(`⚠️ Daftar kosong, Tambahkan link baru ke daftar terlebih dahulu.`));
       if (!list.includes(link)) return await msg.channel.send(embeds(`⚠️ **${link}** Tidak ada pada daftar!`));
       let newList = list.filter(l=> !l.includes(link))
-      await db.child(msg.guild.id).child("voice").update({allow_link:list.toString()})
+      await db.child(msg.guild.id).child("voice").update({allow_link:newList.toString()})
       await msg.channel.send(embeds(`✅ Daftar di update.\n❌ ${link}`))
     })
   } else if (args[0] != undefined && args[0].toLowerCase() === "help") {

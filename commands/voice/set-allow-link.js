@@ -53,7 +53,7 @@ module.exports.run = async (msg, args, creator, prefix) => {
       await msg.channel.send(embeds(`✅ Daftar di update.\n❌ ${link}`))
     })
   } else if (args[0] != undefined && args[0].toLowerCase() === "help") {
-    await msg.channel.send(embeds(`🛠 **__Allow Link On VC__**\n\nTambah Link ke daftar :\n \`${prefix}vc-link add youtube.com\`\nHapus Link Dari Daftar :\n \`${prefix}vc-link del youtube.com\`\n\n*NOTE: Link yang tidak ada pada daftar akan segera di hapus.*`));
+    await msg.channel.send(embeds(`🛠 **__Allow Link On VC__**\n\nTambah Link ke daftar :\n \`${prefix}vc-link add youtube.com\`\nHapus Link Dari Daftar :\n \`${prefix}vc-link del youtube.com\`\nTampilkan Daftar URL :\n \`${prefix}vc-link list\`\n\n*NOTE: Link yang tidak ada pada daftar akan segera di hapus.*`));
   } else {
     await msg.channel.send(embeds(`❌ **Salah perintah**\nTry It : \`${prefix}vc-link help\``))
   }

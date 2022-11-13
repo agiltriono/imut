@@ -4,7 +4,7 @@ module.exports.help = {
     name: "vc-allow-link",
     aliases: ["vc-link"],
     usage:"name",
-    category: "Setting",
+    category: "Auto Channel",
     permissions: ["SEND_MESSAGES"],
     description: "Buat daftar url yang di izinkan pada Voice Chat."
 }

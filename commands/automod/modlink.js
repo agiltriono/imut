@@ -7,7 +7,7 @@ module.exports.help = {
     usage:"",
     category: "Auto Mod",
     permissions: ["ADMINISTRATOR", "MANAGE_CHANNELS"],
-    description: "Buat daftar URL untuk diizinkan ataupun dihapus secara otomatis pada channel tertentu."
+    description: "Buat daftar URL dan secara otomatis menghapus link pada channel tertentu."
 }
 
 module.exports.run = async function(msg, args, creator, prefix) {

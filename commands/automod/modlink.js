@@ -42,7 +42,7 @@ module.exports.run = async function(msg, args, creator, prefix) {
       const option = array.map((e,i)=> {
         return {
           label: e.name,
-          value: `${e.name}`,
+          value: `${e.id}`,
           description: `Created By: ${msg.guild.members.cache.get(e.createdBy).user.username}`
         }
       })

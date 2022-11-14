@@ -4,17 +4,17 @@ const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId, args) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
-  const ruleName = args[2]
+  const ruleId = args[2]
   if (interaction.customId.includes("modlink_modal_")) {
     db.child(guild.id).once("value", async (s) => {
       const modlink = [...s.child("modlink").val()]
-      const rule = modlink[modlink.findIndex(c=>c.name === ruleName)]
+      const rule = modlink[modlink.findIndex(c=>c.id === ruleId)]
       const current = rule.link.trim().split(',')
       const name = interaction.fields.getTextInputValue('modlink_modal_create_name_input');
       const input = name.trim().replace(/ +/g, '').split(",")
       if (interaction.customId.includes("_add")) {
         const merged = [].concat(current,input)
-        modlink[modlink.findIndex(c => c.name == ruleName)].link = merged.toString();
+        modlink[modlink.findIndex(c => c.id == ruleId)].link = merged.toString();
         await db.child(guild.id).update({modlink:modlink});
         await interaction.update({
           embeds: [{
@@ -24,8 +24,8 @@ module.exports.execute = async function(interaction, client, userId, args) {
         })
       } else {
         const merged = current.length != 0 ? [...new Set([...current.filter(id=> !input.includes(id)),...input.filter(id=>!current.includes(id))])] : [...input]
-        if (merged.length <= 0) modlink[modlink.findIndex(c => c.name == ruleName)].link = "";
-        if (merged.length > 0) modlink[modlink.findIndex(c => c.name == ruleName)].link = merged.toString();
+        if (merged.length <= 0) modlink[modlink.findIndex(c => c.id == ruleId)].link = "";
+        if (merged.length > 0) modlink[modlink.findIndex(c => c.id == ruleId)].link = merged.toString();
         await db.child(guild.id).update({modlink:modlink});
         await interaction.update({
           embeds: [{
@@ -37,7 +37,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
     })
   } else if(interaction.customId.includes("modlink_button_link_") && interaction.customId.includes("_add")) {
     const modal = new Modal()
-    .setCustomId(`modlink_modal_link_${userId}_${ruleName}_add`)
+    .setCustomId(`modlink_modal_link_${userId}_${ruleId}_add`)
     .setTitle('Add URL')
     .addComponents([
       new MessageActionRow().addComponents(
@@ -52,10 +52,10 @@ module.exports.execute = async function(interaction, client, userId, args) {
   } else if (interaction.customId.includes("modlink_button_link_") && interaction.customId.includes("_remove")) {
     db.child(guild.id).once("value", async(s) => {
      const modlink = [...s.child("modlink").val()]
-     const rule = modlink[modlink.findIndex(c=>c === ruleName)].link.trim().split(",")
+     const rule = modlink[modlink.findIndex(c=>c === ruleId)].link.trim().split(",")
      if (rule.length === 0) return interaction.reply(ephemeral(`⚠️ Daftar Kosong.`))
       const modal = new Modal()
-      .setCustomId(`modlink_modal_link_${userId}_${ruleName}_remove`)
+      .setCustomId(`modlink_modal_link_${userId}_${ruleId}_remove`)
       .setTitle('Remove URL')
       .addComponents([
         new MessageActionRow().addComponents(
@@ -71,13 +71,13 @@ module.exports.execute = async function(interaction, client, userId, args) {
   } else {
    db.child(guild.id).once("value", async(s) => {
      const modlink = [...s.child("modlink").val()]
-     const rule = modlink[modlink.findIndex(c=>c === ruleName)].link.trim().split(",")
+     const rule = modlink[modlink.findIndex(c=>c === ruleId)].link.trim().split(",")
      const list = rule.length > 0 ? rule.map(i=>i).join(",") : "Daftar Kosong"
      var row = {
         type: 1,
         components: [
-          new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleName+"_add").setEmoji("✏️").setLabel("Add").setStyle('PRIMARY'),
-          new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleName+"_remove").setEmoji("⛔").setLabel("Remove").setStyle('DANGER'),
+          new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleId+"_add").setEmoji("✏️").setLabel("Add").setStyle('PRIMARY'),
+          new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleId+"_remove").setEmoji("⛔").setLabel("Remove").setStyle('DANGER'),
           new MessageButton().setCustomId('modlink_button_close_'+userId).setEmoji("❌").setLabel("Tutup").setStyle('DANGER'),
         ]
       }

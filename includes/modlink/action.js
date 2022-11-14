@@ -4,7 +4,7 @@ const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId, args) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
-  const ruleName = args[2]
+  const ruleId = args[2]
   if (interaction.customId.includes("welcomer_selectmenu_")) {
     const value = interaction.values[0]
     await db.child(guild.id).update({ modlink : modlink })
@@ -19,7 +19,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
     await interaction.deferReply({ephemeral:true})
     db.child(guild.id).once("value", async(s) => {
       const modlink = [...s.child("modlink").val()]
-      const action = modlink[modlink.findIndex(c=>c.name == ruleName)].action.trim()
+      const action = modlink[modlink.findIndex(c=>c.id == ruleId)].action.trim()
       var option = [
         {
           label: "Allow",
@@ -33,7 +33,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         }
       ]
       const menu = new MessageActionRow().addComponents(new MessageSelectMenu()
-        .setCustomId(`modlink_selectmenu_action_${userId}_${ruleName}`)
+        .setCustomId(`modlink_selectmenu_action_${userId}_${ruleId}`)
         .setPlaceholder(`Pilih Action`)
         .addOptions(option));
       await interaction.reply({

@@ -4,7 +4,7 @@ const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId, args) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
-  const ruleName = args[2]
+  const ruleId = args[2]
   if (interaction.customId.includes("modlink_selectmenu_")) {
     db.child(guild.id).once("value", async (s) => {
       const modlink = [...s.child("modlink").val()]
@@ -36,16 +36,16 @@ module.exports.execute = async function(interaction, client, userId, args) {
       const simple = function () { 
         return [
           new MessageActionRow().addComponents(new MessageSelectMenu()
-            .setCustomId(`modlink_selectmenu_channel_${userId}_${ruleName}_1`)
+            .setCustomId(`modlink_selectmenu_channel_${userId}_${ruleId}_1`)
             .setPlaceholder(`Daftar Channel 1`)
             .setMinValues(1)
     	      .setMaxValues(option.length)
             .addOptions(option))
         ]
       }
-      const menu = option.length > 25 ? await chunk(option, 25, userId, ruleName) : simple()
-      if (merged.length == 0) modlink[modlink.findIndex(c => c.name == ruleName)].channel = "";
-      if (merged.length > 0) modlink[modlink.findIndex(c => c.name == ruleName)].channel = merged.toString();
+      const menu = option.length > 25 ? await chunk(option, 25, userId, ruleId) : simple()
+      if (merged.length == 0) modlink[modlink.findIndex(c => c.id == ruleId)].channel = "";
+      if (merged.length > 0) modlink[modlink.findIndex(c => c.id == ruleId)].channel = merged.toString();
       await db.child(guild.id).update({modlink:modlink});
       await interaction.update({
         embeds: [{
@@ -60,7 +60,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
     await interaction.deferReply()
     db.child(guild.id).once("value", async (s)=> {
       const modlink = [...s.child("modlink").val()]
-      const command = modlink[modlink.findIndex(c=>c.name === ruleName)]
+      const command = modlink[modlink.findIndex(c=>c.id === ruleId)]
       const ch = command.channel.trim().length != 0 ? command.channel.trim().split(",") : []
       const list = function () {
         return ch.length != 0 ? ch.map(c=> `<#${c}>`).join(",") : "Tidak ada channel"
@@ -84,14 +84,14 @@ module.exports.execute = async function(interaction, client, userId, args) {
       const simple = function () { 
         return [
           new MessageActionRow().addComponents(new MessageSelectMenu()
-            .setCustomId(`modlink_selectmenu_channel_${userId}_${ruleName}_1`)
+            .setCustomId(`modlink_selectmenu_channel_${userId}_${ruleId}_1`)
             .setPlaceholder(`Pilih Channel 1`)
             .setMinValues(1)
     	      .setMaxValues(option.length)
             .addOptions(option))
         ]
       }
-      const menu = option.length > 25 ? await chunk(option, 25, userId, ruleName) : simple()
+      const menu = option.length > 25 ? await chunk(option, 25, userId, ruleId) : simple()
       await interaction.editReply({
         embeds: [{
           color: color(),
@@ -103,14 +103,14 @@ module.exports.execute = async function(interaction, client, userId, args) {
     })
   }
 }
-async function chunk(obj, i, userId, ruleName) {
+async function chunk(obj, i, userId, ruleId) {
   let chunks = [];
   let count = 0
   while(obj.length){
     count++;
     const arr = obj.splice(0,i)
     chunks.push(new MessageActionRow().addComponents(new MessageSelectMenu()
-    .setCustomId(`modlink_selectmenu_channel_${userId}_${ruleName}_${count}`)
+    .setCustomId(`modlink_selectmenu_channel_${userId}_${ruleId}_${count}`)
     .setPlaceholder(`Pilih Channel ${count}`)
     .setMinValues(1)
 	  .setMaxValues(arr.length)

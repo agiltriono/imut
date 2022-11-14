@@ -7,11 +7,12 @@ module.exports.execute = async function(interaction, client, userId) {
   if (interaction.customId.includes("modlink_modal")) {
     db.child(guild.id).once("value", async (server) => {
       var modlink = server.child("modlink").exists() ? [...server.child('modlink').val()] : []
-      const field = interaction.fields
-      const name = field.getTextInputValue('modlink_modal_create_name_input');
+      const input = interaction.fields.getTextInputValue('modlink_modal_create_name_input');
+      // Fix Random Id
       const date = Date.now()
       const init = {
-        name: name,
+        name: input,
+        id: `rule-${date}`,
         link: "",
         channel: "",
         action: "",
@@ -19,20 +20,20 @@ module.exports.execute = async function(interaction, client, userId) {
         createdBy: member.user.id,
       }
       modlink.push(init)
-      const ruleName = init.name
+      const ruleId = init.id
       var row1 = {
         type: 1,
         components: [
-          new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleName).setEmoji("🔗").setLabel("Link").setStyle('PRIMARY'),
-          new MessageButton().setCustomId('modlink_button_action_'+userId+"_"+ruleName).setEmoji("🛡").setLabel("ACTION").setStyle('PRIMARY'),
-          new MessageButton().setCustomId('modlink_button_channel_'+userId+"_"+ruleName).setEmoji("💬").setLabel("Channel").setStyle('PRIMARY')
+          new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleId).setEmoji("🔗").setLabel("Link").setStyle('PRIMARY'),
+          new MessageButton().setCustomId('modlink_button_action_'+userId+"_"+ruleId).setEmoji("🛡").setLabel("Action").setStyle('PRIMARY'),
+          new MessageButton().setCustomId('modlink_button_channel_'+userId+"_"+ruleId).setEmoji("💬").setLabel("Channel").setStyle('PRIMARY')
         ]
       }
       var row2 = {
         type:1,
         components: [
-          new MessageButton().setCustomId('modlink_button_delete_'+userId+"_"+ruleName).setLabel("Hapus").setEmoji("🗑").setStyle('DANGER'),
-          new MessageButton().setCustomId('modlink_button_close_'+userId+"_"+ruleName).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
+          new MessageButton().setCustomId('modlink_button_delete_'+userId+"_"+ruleId).setLabel("Hapus").setEmoji("🗑").setStyle('DANGER'),
+          new MessageButton().setCustomId('modlink_button_close_'+userId+"_"+ruleId).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
         ]
       }
       await db.child(guild.id).update({modlink:modlink})
@@ -57,7 +58,7 @@ module.exports.execute = async function(interaction, client, userId) {
               .setCustomId('modlink_modal_create_name_input')
               .setLabel('Nama Rule:')
               .setStyle('SHORT')
-              .setPlaceholder('contoh: general_rule')
+              .setPlaceholder('contoh : General Rule')
               .setRequired(true))
         ]);
       await interaction.showModal(modal);

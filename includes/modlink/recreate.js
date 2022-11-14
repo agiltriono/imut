@@ -25,7 +25,8 @@ module.exports = async function recreate(interaction, client, userId) {
       const option = array.map((e,i)=> {
         return {
           label: e.name,
-          value: `${e.name}`
+          value: `${e.id}`,
+          description: `Created By: ${guild.members.cache.get(e.createdBy).user.username}`
         }
       })
       if (option.length > 25 || option.length === 100) {

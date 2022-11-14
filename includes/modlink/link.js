@@ -9,11 +9,13 @@ module.exports.execute = async function(interaction, client, userId, args) {
     db.child(guild.id).once("value", async (s) => {
       const modlink = [...s.child("modlink").val()]
       const rule = modlink[modlink.findIndex(c=>c.id === ruleId)]
-      const current = rule.link.trim().split(',')
+      const current = rule.link.trim().length != 0 ? rule.link.trim().split(",") : []
       const name = interaction.fields.getTextInputValue('modlink_modal_link_url_input');
-      const input = name.trim().replace(/ +/g, '').split(",")
+      var input = name.trim().replace(/ +/g, "").split(",")
+      if (input.length === 0) return interaction.reply(ephemeral("⚠️ URL tidak boleh kosong!"));
       if (interaction.customId.includes("_add")) {
-        const merged = [].concat(current,input)
+        if(input.some(c=>current.includes(c))) return interaction.reply(ephemeral(`⚠️ Input ${input} Sudah ada.`))
+        const merged = [].concat(current,input).filter(c=>c)
         modlink[modlink.findIndex(c => c.id == ruleId)].link = merged.toString();
         await db.child(guild.id).update({modlink:modlink});
         await interaction.update({

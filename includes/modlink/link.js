@@ -30,7 +30,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         await interaction.update({
           embeds: [{
             title: "ADD/REMOVE LINK",
-            description: `${merged.length > 0 ? `\`${merged.toString()}\`` : "\`Daftar Kosong\`"}`
+            description: `${merged.length != 0 ? `\`${merged.toString()}\`` : "\`Daftar Kosong\`"}`
           }]
         })
       }
@@ -71,7 +71,8 @@ module.exports.execute = async function(interaction, client, userId, args) {
   } else {
    db.child(guild.id).once("value", async(s) => {
      const modlink = [...s.child("modlink").val()]
-     const rule = modlink[modlink.findIndex(c=>c.id === ruleId)].link.trim().split(",")
+     const rule = modlink[modlink.findIndex(c=>c.id === ruleId)]
+     const link = rule.link.trim()
      var row = {
         type: 1,
         components: [
@@ -80,11 +81,11 @@ module.exports.execute = async function(interaction, client, userId, args) {
           new MessageButton().setCustomId('modlink_button_close_'+userId).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
         ]
       }
-     
+     const list = rule.length != 0 ? `\`${rule}\`` : "\`Daftar Kosong\`"
      await interaction.reply({
        embeds: [{
          title: "ADD/REMOVE LINK",
-         description: rule.length > 0 ? `\`${rule.toString()}\`` : "\`Daftar Kosong\`"
+         description: list
        }],
        components: [row]
      })

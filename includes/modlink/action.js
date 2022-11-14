@@ -35,7 +35,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         {
           label: "Allow",
           value: "allow",
-          emojo: "✅",
+          emoji: "✅",
           description: "Link pada daftar tidak akan di hapus."
         },
         {

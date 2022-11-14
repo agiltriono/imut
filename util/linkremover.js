@@ -11,17 +11,16 @@ module.exports = async function linkremover(msg, text, voice){
   } else if (text.exists()) {
     const arr = [...text.val()]
     for (let i = 0; i < arr.length; i++) {
-      if(arr[i].channel.trim().includes(channelId)) {
+      if(arr[i].channel.includes(channelId)) {
         const index = arr[i]
-        const link = index.link.trim().split(",")
+        const link = [...index.link.trim().split(",")].filter(c=>c)
         const action = index.action.trim()
-        if (action.length === 0) return;
         if(action == "allow") {
           // required
-          if (link.length == 0) return;
-          if (link.some(a=> content.includes(a))) return;
+          if (link.length != 0 && link.some(a=> content.includes(a))) return;
           return await msg.delete();
-        } else if (action === "disallow") {
+        }
+        if (action === "disallow") {
           // Exception
           if(link.some(a=> content.includes(a))) return;
           return await msg.delete()

@@ -18,7 +18,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         await db.child(guild.id).update({modlink:modlink});
         await interaction.update({
           embeds: [{
-            title: interaction.message.embeds[0].title.toString(),
+            title: "ADD/REMOVE LINK",
             description: `${merged.toString()}`
           }]
         })
@@ -72,7 +72,6 @@ module.exports.execute = async function(interaction, client, userId, args) {
    db.child(guild.id).once("value", async(s) => {
      const modlink = [...s.child("modlink").val()]
      const rule = modlink[modlink.findIndex(c=>c.id === ruleId)].link.trim().split(",")
-     const list = rule.length > 0 ? rule.map(i=>i).join(",") : "Daftar Kosong"
      var row = {
         type: 1,
         components: [
@@ -85,7 +84,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
      await interaction.reply({
        embeds: [{
          title: "ADD/REMOVE LINK",
-         description: list.length > 0 ? `\`${list.toString()}\`` : "\`Daftar Kosong\`"
+         description: rule.length > 0 ? `\`${rule.toString()}\`` : "\`Daftar Kosong\`"
        }],
        components: [row]
      })

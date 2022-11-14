@@ -10,7 +10,6 @@ module.exports = async function linkremover(msg, text, voice){
     if(filter.length != 0 && !filter.some(c => content.includes(c))) return await msg.delete();
   } else if (text.exists()) {
     const arr = [...text.val()]
-    const progress = 0
     for (let i = 0; i < arr.length; i++) {
       if(arr[i].channel.trim().includes(channelId)) {
         const index = arr[i]
@@ -21,7 +20,7 @@ module.exports = async function linkremover(msg, text, voice){
           // required
           if (link.length == 0) return;
           if (link.some(a=> content.includes(a))) return;
-          return await message.delete();
+          return await msg.delete();
         } else if (action === "disallow") {
           // Exception
           if(link.some(a=> content.includes(a))) return;
@@ -29,11 +28,6 @@ module.exports = async function linkremover(msg, text, voice){
         } else {
           return;
         }
-        break;
-      }
-      progress++;
-      if(arr.length == progress && !arr[i].channel.trim().includes(channelId)) {
-        return;
         break;
       }
     }

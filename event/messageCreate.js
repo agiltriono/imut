@@ -40,7 +40,8 @@ module.exports = {
       const manages = message.guild.me.permissions.has("MANAGE_MESSAGES") && message.guild.me.permissions.has("MANAGE_CHANNELS");
       const hasPerm = viewsend && manages;
       const str = message.content.toLowerCase()
-      if ((str.includes("http://") || str.includes("https://")) && !command && command != helpString) {
+      const protocol = ["http://","https://","ftp://"]
+      if (protocol.some(c=>str.includes(c)) && !command && command != helpString) {
         await linkremover(message, link_remover, vc)
       }
       if (!command && command != helpString) {

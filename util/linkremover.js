@@ -17,13 +17,13 @@ module.exports = async function linkremover(msg, text, voice){
         const action = index.action.trim()
         if(action == "allow") {
           // required
-          if (link.length != 0 && link.some(a=> content.includes(a))) return;
+          if (link.some(a=> content.includes(a))) return;
           return await msg.delete();
         }
         if (action === "disallow") {
           // Exception
-          if(link.some(a=> content.includes(a))) return;
-          return await msg.delete()
+          if(link.some(a=> content.includes(a))) return await msg.delete();
+          return;
         } else {
           return;
         }

@@ -23,6 +23,7 @@ module.exports = {
       if (interaction.customId.includes('welcomer_button_')) return go("welcomer", "welcomer/welcomer", interaction.customId.replace("welcomer_button_", ""));
       if (interaction.customId.includes('goodbye_button_')) return go("goodbye", "goodbye/goodbye", interaction.customId.replace("goodbye_button_", ""));
       if (interaction.customId.includes('cc_button_')) return go("custom", "custom/custom", interaction.customId.replace("cc_button_", ""));
+      if (interaction.customId.includes('modlink_button_')) return go("modlink", "modlink/modlink", interaction.customId.replace("modlink_button_", ""));
       if (interaction.customId.includes('setting_button_')) return go("setting", "setting/setting", interaction.customId.replace("setting_button_", ""));
     }
     if (interaction.isSelectMenu()) {
@@ -40,6 +41,7 @@ module.exports = {
       if (interaction.customId.includes('welcomer_selectmenu_')) return go("welcomer", "welcomer/welcomer", interaction.customId.replace("welcomer_selectmenu_", ''));
       if (interaction.customId.includes('goodbye_selectmenu_')) return go("goodbye", "goodbye/goodbye", interaction.customId.replace("goodbye_selectmenu_", ''));
       if (interaction.customId.includes('cc_selectmenu_')) return go("custom", "custom/custom", interaction.customId.replace("cc_selectmenu_", ''));
+      if (interaction.customId.includes('modlink_selectmenu_')) return go("modlink", "modlink/modlink", interaction.customId.replace("modlink_selectmenu_", ''));
       if (interaction.customId.includes('setting_selectmenu_')) return go("setting", "setting/setting", interaction.customId.replace("setting_selectmenu_", ''));
     }
     if (interaction.isModalSubmit()) {
@@ -57,6 +59,7 @@ module.exports = {
       if (interaction.customId.includes('welcomer_modal_')) return go("welcomer", "welcomer/welcomer", interaction.customId.replace("welcomer_modal_", ''));
       if (interaction.customId.includes('goodbye_modal_')) return go("goodbye", "goodbye/goodbye", interaction.customId.replace("goodbye_modal_", ''));
       if (interaction.customId.includes('cc_modal_')) return go("custom", "custom/custom", interaction.customId.replace("cc_modal_", ''));
+      if (interaction.customId.includes('modlink_modal_')) return go("modlink", "modlink/modlink", interaction.customId.replace("modlink_modal_", ''));
     }
   }
 }

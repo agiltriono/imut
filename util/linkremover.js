@@ -1,3 +1,4 @@
+// MODLINK MODULE
 module.exports = async function linkremover(msg, text, voice){
   const channelId = msg.channelId
   const vc = voice
@@ -9,6 +10,34 @@ module.exports = async function linkremover(msg, text, voice){
     if(filter.length != 0 && !filter.some(c => content.includes(c))) return await msg.delete();
   } else if (text.exists()) {
     const arr = [...text.val()]
-    if(arr.some(c => c.channel.includes(channelId) && c.link.split(",").some(a => content.includes(a)))) return await msg.delete()
+    const progress = 0
+    for (let i = 0; i < arr.length; i++) {
+      if(arr[i].channel.trim().includes(channelId)) {
+        const index = arr[i]
+        const link = index.link.trim().split(",")
+        const action = index.action.trim()
+        if (action.length === 0) return;
+        if(action == "allow") {
+          // required
+          if (link.length == 0) return;
+          if (link.some(a=> content.includes(a))) return;
+          return await message.delete();
+        } else if (action === "disallow") {
+          // Exception
+          if(link.some(a=> content.includes(a))) return;
+          return await msg.delete()
+        } else {
+          return;
+        }
+        break;
+      }
+      progress++;
+      if(arr.length == progress && !arr[i].channel.trim().includes(channelId)) {
+        return;
+        break;
+      }
+    }
+  } else {
+    return;
   }
 }

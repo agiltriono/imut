@@ -24,9 +24,9 @@ module.exports = {
       // TEMPORARY CHANNEL START
       const vc = data.child("voice")
       // TEMPORARY CHANNEL END
-      //LINK REMOVER START
-      const link_remover = data.child("lr")
-      //LINK REMOVER END
+      //AUTOMOD START
+      const link_remover = data.child("modlink")
+      //AUTOMOD END
       const prefix = data.child("prefix").val() ? data.child("prefix").val() : client.prefix;
       const cc = data.child("cc")
       const args = message.content.slice(prefix.length).trim().split(/ +/g);

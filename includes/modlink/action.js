@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageSelectMenu } = require("discord.js");
+const { MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js");
 const { database, color } = require(".././../util/util");
 const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId, args) {
@@ -50,7 +50,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
           color: color(),
           description: `**Action :** \`${action.length != 0 ? action == "allow" ? "Allow" : "Disallow" : "NONE"}\``
         }],
-        components: [tutup,menu]
+        components: [menu,tutup]
       })
     })
   }

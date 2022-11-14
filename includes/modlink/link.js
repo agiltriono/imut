@@ -1,5 +1,5 @@
 const { TextInputComponent, MessageActionRow, Modal, MessageButton } = require("discord.js");
-const { database, color } = require(".././../util/util");
+const { database, color, ephemeral } = require(".././../util/util");
 const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId, args) {
   const guild = interaction.guild
@@ -52,8 +52,8 @@ module.exports.execute = async function(interaction, client, userId, args) {
   } else if (interaction.customId.includes("modlink_button_link_") && interaction.customId.includes("_remove")) {
     db.child(guild.id).once("value", async(s) => {
      const modlink = [...s.child("modlink").val()]
-     const rule = modlink[modlink.findIndex(c=>c.id === ruleId)].link.trim().split(",")
-     if (rule.length === 0) return interaction.reply(ephemeral(`⚠️ Daftar Kosong.`))
+     const rule = modlink[modlink.findIndex(c=>c.id === ruleId)].link.trim()
+     if (rule.length === 0) return interaction.reply(ephemeral(`⚠️ Daftar Kosong.`));
       const modal = new Modal()
       .setCustomId(`modlink_modal_link_${userId}_${ruleId}_remove`)
       .setTitle('Remove URL')

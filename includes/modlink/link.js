@@ -10,7 +10,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
       const modlink = [...s.child("modlink").val()]
       const rule = modlink[modlink.findIndex(c=>c.id === ruleId)]
       const current = rule.link.trim().split(',')
-      const name = interaction.fields.getTextInputValue('modlink_modal_create_name_input');
+      const name = interaction.fields.getTextInputValue('modlink_modal_link_url_input');
       const input = name.trim().replace(/ +/g, '').split(",")
       if (interaction.customId.includes("_add")) {
         const merged = [].concat(current,input)
@@ -42,7 +42,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
     .addComponents([
       new MessageActionRow().addComponents(
         new TextInputComponent()
-          .setCustomId('modlink_modal_link_input')
+          .setCustomId('modlink_modal_link_url_input')
           .setLabel('URL :')
           .setStyle('SHORT')
           .setPlaceholder('Pisahkan dengan koma www.youtube.com,spotify.com')
@@ -60,7 +60,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
       .addComponents([
         new MessageActionRow().addComponents(
           new TextInputComponent()
-            .setCustomId('modlink_modal_link_input')
+            .setCustomId('modlink_modal_link_url_input')
             .setLabel('URL :')
             .setStyle('SHORT')
             .setPlaceholder('Pisahkan dengan koma www.youtube.com,spotify.com')

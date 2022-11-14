@@ -30,7 +30,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         await interaction.update({
           embeds: [{
             title: "ADD/REMOVE LINK",
-            description: `${merged.length != 0 ? `\`${merged.toString()}\`` : "\`Daftar Kosong\`"}`
+            description: `\`${merged.length != 0 ? merged.toString() : "Daftar Kosong"}\``
           }]
         })
       }
@@ -81,11 +81,10 @@ module.exports.execute = async function(interaction, client, userId, args) {
           new MessageButton().setCustomId('modlink_button_close_'+userId).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
         ]
       }
-     const list = rule.length != 0 ? `\`${rule}\`` : "\`Daftar Kosong\`"
      await interaction.reply({
        embeds: [{
          title: "ADD/REMOVE LINK",
-         description: list
+         description: `\`${link.length != 0 ? link : "Daftar Kosong"}\``
        }],
        components: [row]
      })

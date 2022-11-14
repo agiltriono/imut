@@ -52,7 +52,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
   } else if (interaction.customId.includes("modlink_button_link_") && interaction.customId.includes("_remove")) {
     db.child(guild.id).once("value", async(s) => {
      const modlink = [...s.child("modlink").val()]
-     const rule = modlink[modlink.findIndex(c=>c === ruleId)].link.trim().split(",")
+     const rule = modlink[modlink.findIndex(c=>c.id === ruleId)].link.trim().split(",")
      if (rule.length === 0) return interaction.reply(ephemeral(`⚠️ Daftar Kosong.`))
       const modal = new Modal()
       .setCustomId(`modlink_modal_link_${userId}_${ruleId}_remove`)
@@ -71,7 +71,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
   } else {
    db.child(guild.id).once("value", async(s) => {
      const modlink = [...s.child("modlink").val()]
-     const rule = modlink[modlink.findIndex(c=>c === ruleId)].link.trim().split(",")
+     const rule = modlink[modlink.findIndex(c=>c.id === ruleId)].link.trim().split(",")
      const list = rule.length > 0 ? rule.map(i=>i).join(",") : "Daftar Kosong"
      var row = {
         type: 1,

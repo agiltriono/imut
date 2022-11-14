@@ -36,7 +36,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         .setCustomId(`modlink_selectmenu_action_${userId}_${ruleId}`)
         .setPlaceholder(`Pilih Action`)
         .addOptions(option));
-      await interaction.reply({
+      await interaction.editReply({
         embeds : [{
           color: color(),
           description: `**Action :** \`${action.length != 0 ? action == "allow" ? "Allow" : "Disallow" : "NONE"}\``

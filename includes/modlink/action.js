@@ -5,18 +5,21 @@ module.exports.execute = async function(interaction, client, userId, args) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
   const ruleId = args[2]
-  if (interaction.customId.includes("welcomer_selectmenu_")) {
-    const value = interaction.values[0]
-    await db.child(guild.id).update({ modlink : modlink })
-    await interaction.editReply({
-      embeds:[{
-        color: color(),
-        description: `**Action :** \`${value === "allow" ? "Allow" : "Disallow"}\``
-      }],
-      components:[]
+  if (interaction.customId.includes("modlink_selectmenu_")) {
+    db.child(guild.id).once("value", async(s) => {
+      const modlink = [...s.child("modlink").val()]
+      modlink[modlink.findIndex(c=>c.id == ruleId)].action = value
+      const value = interaction.values[0]
+      await db.child(guild.id).update({ modlink : modlink })
+      await interaction.update({
+        embeds:[{
+          color: color(),
+          description: `**Action :** \`${value === "allow" ? "Allow" : "Disallow"}\``
+        }],
+        components:[]
+      })
     })
   } else {
-    await interaction.deferReply()
     db.child(guild.id).once("value", async(s) => {
       const modlink = [...s.child("modlink").val()]
       const action = modlink[modlink.findIndex(c=>c.id == ruleId)].action.trim()
@@ -36,7 +39,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         .setCustomId(`modlink_selectmenu_action_${userId}_${ruleId}`)
         .setPlaceholder(`Pilih Action`)
         .addOptions(option));
-      await interaction.editReply({
+      await interaction.reply({
         embeds : [{
           color: color(),
           description: `**Action :** \`${action.length != 0 ? action == "allow" ? "Allow" : "Disallow" : "NONE"}\``

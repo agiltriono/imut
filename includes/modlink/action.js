@@ -8,7 +8,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
   if (interaction.customId.includes("welcomer_selectmenu_")) {
     const value = interaction.values[0]
     await db.child(guild.id).update({ modlink : modlink })
-    await interaction.update({
+    await interaction.editReply({
       embeds:[{
         color: color(),
         description: `**Action :** \`${value === "allow" ? "Allow" : "Disallow"}\``
@@ -16,7 +16,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
       components:[]
     })
   } else {
-    await interaction.deferReply({ephemeral:true})
+    await interaction.deferReply()
     db.child(guild.id).once("value", async(s) => {
       const modlink = [...s.child("modlink").val()]
       const action = modlink[modlink.findIndex(c=>c.id == ruleId)].action.trim()

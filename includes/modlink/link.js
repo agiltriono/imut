@@ -29,8 +29,8 @@ module.exports.execute = async function(interaction, client, userId, args) {
         await db.child(guild.id).update({modlink:modlink});
         await interaction.update({
           embeds: [{
-            title: interaction.message.embeds[0].title.toString(),
-            description: `${merged.length > 0 ? merged.toString() : "Daftar Kosong"}`
+            title: "ADD/REMOVE LINK",
+            description: `${merged.length > 0 ? `\`${merged.toString()}\`` : "\`Daftar Kosong\`"}`
           }]
         })
       }
@@ -78,17 +78,16 @@ module.exports.execute = async function(interaction, client, userId, args) {
         components: [
           new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleId+"_add").setEmoji("✏️").setLabel("Add").setStyle('PRIMARY'),
           new MessageButton().setCustomId('modlink_button_link_'+userId+"_"+ruleId+"_remove").setEmoji("⛔").setLabel("Remove").setStyle('DANGER'),
-          new MessageButton().setCustomId('modlink_button_close_'+userId).setEmoji("❌").setLabel("Tutup").setStyle('DANGER'),
+          new MessageButton().setCustomId('modlink_button_close_'+userId).setEmoji("❌").setLabel("Tutup").setStyle('DANGER')
         ]
       }
      
      await interaction.reply({
        embeds: [{
          title: "ADD/REMOVE LINK",
-         description: `\`${list.toString()}\``
+         description: list.length > 0 ? `\`${list.toString()}\`` : "\`Daftar Kosong\`"
        }],
-       components: [row],
-       ephemeral: true
+       components: [row]
      })
    })
   }

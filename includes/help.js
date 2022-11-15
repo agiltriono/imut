@@ -14,7 +14,6 @@ module.exports = async function help(msg, client, args, creator) {
       { name: "Utility", emoji:"🛠"},
       { name: "Custom Command", emoji:"📝"},
       { name: "Auto Mod", emoji:"🛡"},
-      { name: "Developer", emoji:"🔧"},
       ]
     return list.find(e => e.name.toLowerCase() == emo.toLowerCase())
   }

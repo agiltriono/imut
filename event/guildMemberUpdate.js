@@ -8,7 +8,7 @@ module.exports = {
     db.child(guild.id).once("value", async(s) => {
       const booster = s.child("booster")
       const boosterchannel = booster.child("channel").val()
-      const ex_booster_role = boostet.child("ex_booster_role").val()
+      const ex_booster_role = booster.child("ex_booster_role").val()
       const booster_role = booster.child("booster_role").val()
       const boost_enable = booster.child("enable").val()
       const content = booster.child("content")
@@ -38,21 +38,21 @@ async function replace(member, json) {
   if (json.hasOwnProperty("content") && json.hasOwnProperty("embeds")) {
     var embed = json.embeds[0]
     var content = json.content
-    if (embed.hasOwnProperty("description")) embed.description = embed.description.replace(/^{member}/g, `<@${member.user.id}>`);
-    if(content.length != 0) content = content.replace(/^{member}/g, `<@${member.user.id}>`);
+    if (embed.hasOwnProperty("description")) embed.description = embed.description.replace(/{member}/g, `<@${member.user.id}>`);
+    if(content.length != 0) content = content.replace(/{member}/g, `<@${member.user.id}>`);
     return {
       content: content,
       embeds: [embed]
     }
   } else if (json.hasOwnProperty("content") && !json.hasOwnProperty("embeds")) {
     var content = json.content
-    if(content.length != 0) content = content.replace(/^{member}/g, `<@${member.user.id}>`);
+    if(content.length != 0) content = content.replace(/{member}/g, `<@${member.user.id}>`);
     return {
       content: content
     }
   } else if (json.hasOwnProperty("embeds") && !json.hasOwnProperty("content")) {
     var embed = json.embeds[0]
-    if (embed.hasOwnProperty("description")) embed.description = embed.description.replace(/^{member}/g, `<@${member.user.id}>`);
+    if (embed.hasOwnProperty("description")) embed.description = embed.description.replace(/{member}/g, `<@${member.user.id}>`);
     return {
       embeds: [embed]
     }

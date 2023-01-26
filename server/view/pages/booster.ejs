@@ -1,0 +1,170 @@
+<div id="booster_editor" class="row">
+  <div class="col-xl-8 flex-column d-flex grid-margin stretch-card">
+    <div class="row flex-grow">
+      <div class="col-sm-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-header bg-white">
+            <div class="form-group">
+              <div class="float-left">
+                <h4 class="card-title">BOOSTER</h4>
+              </div>
+              <div class="float-right">
+                <label class="toggle-switch">
+                  <input name="enable" type="checkbox" id="booster_enable">
+                  <span class="toggle-slider round"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div id="booster_enable_module" style="/*display:none*/" class="card-inner">
+            <div class="card-body">
+              <!-- CHANNEL -->
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <label class="form-label">Channel</label>
+                  <select name="channel" class="form-control form-control-sm" id="booster_channel"></select>
+                </div>
+              </div>
+              <!-- BOOSTER ROLE -->
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <label class="form-label">Booster Role</label>
+                  <select name="booster_role" class="form-control form-control-sm" id="booster_role"></select>
+                </div>
+                <div class="col-sm-3">
+                  <label class="form-label">EX Booster Role</label>
+                  <select name="ex_booster_role" class="form-control form-control-sm" id="booster_ex_role"></select>
+                </div>
+              </div>
+              <!-- SWITCH MESSAGE -->
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Pilih Tampilan</label>
+                <div class="col-sm-3">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="show" id="booster_enable_message" value="content">
+                      Regular Message
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="show" id="booster_enable_embed" value="embed">
+                      Rich Embed
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- CONTENT -->
+              <div id="booster_message" style="display:none">
+                <div class="form-group mt-5">
+                  <label class="form-label">Message</label>
+                  <textarea name="content.content" class="form-control" id="booster_message_content" maxlength="4000" rows="3" resize="true"></textarea>
+                </div>
+              </div>
+              <div id="booster_embed" style="display:none">
+                <!-- CONTENT -->
+                <div class="form-group mt-5">
+                  <label class="form-label">Konten</label>
+                  <textarea name="content.content" class="form-control" id="booster_embeds_content" maxlength="4000" rows="3" resize="true"></textarea>
+                </div>
+                <!-- COLOR -->
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label class="form-label">Color</label>
+                    <div id="booster_colorpicker" class="input-group" title="Using format option">
+                      <input name="content.embeds.color" type="text" class="form-control input-sm" id="booster_embeds_color" value="#305AA2"/>
+                      <span class="input-group-append">
+                        <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- TITLE -->
+                <div class="form-group">
+                  <label class="form-label">Title</label>
+                  <input name="content.embeds.title" type="text" id="booster_embeds_title" class="form-control">
+                </div>
+                <!-- IMAGE -->
+                <div class="form-group">
+                  <label class="form-label">Thumbnail</label>
+                  <div class="clearfix"></div>
+                  <div id="booster_hasthumbnail" class="d-none embeds_thumbnail_wrapper">
+                    <img name="content.embeds.thumbnail.url" id="booster_embeds_thumbnail" data-src="" src="" class="image_preview rounded" alt="image">
+                    <button id="booster_btn_thumbnail_delete" class="btn btn-xs btn-danger position-absolute" style="top:10px;right:10px"><i class="fas fa-close"></i></button>
+                    <input type="file" id="booster_thumbnail_file" class="d-none">
+                  </div>
+                  <div id="booster_nothumbnail" class="embeds_thumbnail_wrapper">
+                    <img src="images/nothumbnail.jpg" class="image_preview rounded" alt="thumbnail">
+                    <button id="booster_btn_thumbnail_upload" class="btn btn-xs btn-success position-absolute" style="top:10px;right:10px"><i class="fas fa-upload"></i></button>
+                  </div>
+                </div>
+                <!-- DESCRIPTION -->
+                <div class="form-group">
+                  <label class="form-label">Deskripsi</label>
+                  <textarea name="content.embeds.description" class="form-control" id="booster_embeds_description" rows="3"></textarea>
+                </div>
+                <!-- IMAGE -->
+                <div class="form-group">
+                  <label class="form-label">Background</label>
+                  <div class="clearfix"></div>
+                  <div id="booster_hasimage" class="d-none embeds_image_wrapper">
+                    <img name="content.embeds.image.url" id="booster_embeds_image" data-src="" src="" class="image_preview rounded" alt="image">
+                    <button id="booster_btn_image_delete" class="btn btn-xs btn-danger position-absolute" style="top:10px;right:10px"><i class="fas fa-close"></i></button>
+                    <input type="file" id="booster_image_file" class="d-none">
+                  </div>
+                  <div id="booster_noimage" class="embeds_image_wrapper">
+                    <img src="images/noimage.jpg" class="image_preview rounded" alt="image">
+                    <button id="booster_btn_image_upload" class="btn btn-xs btn-success position-absolute" style="top:10px;right:10px"><i class="fas fa-upload"></i></button>
+                  </div>
+                </div>
+                <!-- FOOTER -->
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col">
+                      <label class="form-label">Footer Teks</label>
+                      <input name="content.embeds.footer.text" type="text" id="booster_embeds_footer_text" class="form-control form-control-sm">
+                    </div>
+                    <div class="col">
+                      <label class="form-label">Footer Ikon</label>
+                      <input name="content.embeds.footer.icon_url" type="text" id="booster_embeds_footer_icon_url" class="form-control form-control-sm">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">        
+              <div class="float-right btn-group">
+                <button id="booster_btn_preview" class="btn btn-sm btn-secondary mr-2">Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="booster_preview" style="display:none" class="row">
+  <div class="col-xl-8 flex-column d-flex grid-margin stretch-card">
+    <div class="row flex-grow">
+      <div class="col-sm-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-header bg-white">
+            <div class="float-left">
+              <h4 class="title">Pratinjau</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <div avatar="<%=data.botAvatar%>" username="<%=data.botUsername%>" id="booster_embeds_preview" class="embeds_preview"></div>
+          </div>
+          <div class="card-footer">
+            <div class="float-right btn-group">
+              <button id="booster_btn_back" class="btn btn-sm btn-secondary mr-2">Kembali</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

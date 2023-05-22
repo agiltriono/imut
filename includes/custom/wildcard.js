@@ -9,6 +9,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
     const command = cc[cc.findIndex(c=>c.name === commandName)]
     const wild_icon = command.wildcard == "yes" ? "✅" : "❎";
     const wild_style = command.wildcard == "yes" ? "SUCCESS" : "DANGER";
+    const allow_vc_style = command.allow_vc == "yes" ? ["DANGER", "Disable In VC"] : ["SUCCESS", "Enable In VC"];
     const dismis = {
       type: 1,
       components: [
@@ -30,6 +31,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         type: 1,
         components: [
           new MessageButton().setCustomId('cc_button_channel_'+userId+"_"+commandName).setEmoji("💬").setLabel("Channel").setStyle('PRIMARY'),
+          new MessageButton().setCustomId('cc_button_allowvc_'+userId+"_"+commandName).setEmoji("🎙").setLabel(allow_vc_style[1]).setStyle(allow_vc_style[0]),
           new MessageButton().setCustomId('cc_button_save_'+userId+"_"+commandName).setEmoji("✅").setLabel("Save").setStyle('SUCCESS'),
           new MessageButton().setCustomId('cc_button_delete_'+userId+"_"+commandName).setLabel("Hapus").setEmoji("🗑").setStyle('DANGER'),
           new MessageButton().setCustomId('cc_button_close_'+userId+"_"+commandName).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
@@ -70,6 +72,7 @@ module.exports.execute = async function(interaction, client, userId, args) {
         type:1,
         components:[
           new MessageButton().setCustomId('cc_button_channel_'+userId+"_"+commandName).setEmoji("💬").setLabel("Channel").setStyle('PRIMARY'),
+          new MessageButton().setCustomId('cc_button_allowvc_'+userId+"_"+commandName).setEmoji("🎙").setLabel(allow_vc_style[1]).setStyle(allow_vc_style[0]),
           new MessageButton().setCustomId('cc_button_save_'+userId+"_"+commandName).setEmoji("✅").setLabel("Save").setStyle('SUCCESS'),
           new MessageButton().setCustomId('cc_button_delete_'+userId+"_"+commandName).setLabel("Hapus").setEmoji("🗑").setStyle('DANGER'),
           new MessageButton().setCustomId('cc_button_close_'+userId+"_"+commandName).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')

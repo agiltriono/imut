@@ -17,7 +17,8 @@ module.exports.execute = async function(interaction, client, userId) {
         channel: "",
         content : "Pratinjau Text",
         embed : {description: "Pratinjau Embed"},
-        wildcard: "no"
+        wildcard: "no",
+        allow_vc: "no"
       }
       cc.push(init)
       const commandName = init.name

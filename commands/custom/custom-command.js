@@ -1,5 +1,4 @@
-const { database, embeds, getmsg, clear, remove, color } = require(".././../util/util"); 
-const db = database.ref("guild");
+const { embeds, getmsg, clear, remove, color } = require(".././../util/util");
 const { MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js");
 module.exports.help = {
     name: "custom-command",
@@ -21,67 +20,66 @@ module.exports.run = async function(msg, args, creator, prefix) {
   // ID_CHANNEL
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
   const guild = msg.guild
-  db.child(guild.id).once("value", async (server) => {
-    var cc = server.child("cc")
-    var notlimited = {
-      type: 1,
-      components: [
-        new MessageButton().setCustomId('cc_button_create_'+creator.id).setEmoji("📝").setLabel("Create New").setStyle('PRIMARY'),
-        new MessageButton().setCustomId('cc_button_close_'+creator.id).setEmoji("❌").setLabel("Tutup").setStyle('DANGER'),
-      ]
-    }
-    var limited = {
-      type: 1,
-      components: [
-        new MessageButton().setCustomId('cc_button_create_'+creator.id).setEmoji("📝").setLabel("Create New").setStyle('PRIMARY').setDisabled(true),
-        new MessageButton().setCustomId('cc_button_close_'+creator.id).setEmoji("❌").setLabel("Tutup").setStyle('DANGER'),
-      ]
-    }
-    if (cc.exists()) {
-      const array = cc.val()
-      const option = array.map((e,i)=> {
-        return {
-          label: e.name,
-          value: `${e.name}`
-        }
-      })
-      if (option.length > 25 || option.length === 100) {
-        const button = option.length == 100 ? limited : notlimited
-        const array = await chunk(option, 25)
-        const custom = {
-          embeds: [{
-            color: color(),
-            description: `**__Custom Command__** = ${array.length}`
-          }],
-          components: [button, array]
-        }
-        await msg.channel.send(custom)
-      } else {
-        const button = option.length == 100 ? limited : notlimited
-        const menu = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId(`cc_selectmenu_edit_${creator.id}_1`)
-          .setPlaceholder(`Edit Command`)
-          .addOptions(option));
-        const custom = {
-          embeds: [{
-            color: color(),
-            description: `**__Custom Command__** = ${array.length}`
-          }],
-          components: [button, menu]
-        }
-        await msg.channel.send(custom)
+  const db = await msg.client.db.get(guild.id);
+  var cc = db.cc ? db.cc : []
+  var notlimited = {
+    type: 1,
+    components: [
+      new MessageButton().setCustomId('cc_button_create_'+creator.id).setEmoji("📝").setLabel("Create New").setStyle('PRIMARY'),
+      new MessageButton().setCustomId('cc_button_close_'+creator.id).setEmoji("❌").setLabel("Tutup").setStyle('DANGER'),
+    ]
+  }
+  var limited = {
+    type: 1,
+    components: [
+      new MessageButton().setCustomId('cc_button_create_'+creator.id).setEmoji("📝").setLabel("Create New").setStyle('PRIMARY').setDisabled(true),
+      new MessageButton().setCustomId('cc_button_close_'+creator.id).setEmoji("❌").setLabel("Tutup").setStyle('DANGER'),
+    ]
+  }
+  if (cc.length) {
+    const array = cc
+    const option = array.map((e,i)=> {
+      return {
+        label: e.name,
+        value: `${e.name}`
       }
-    } else {
+    })
+    if (option.length > 25 || option.length === 100) {
+      const button = option.length == 100 ? limited : notlimited
+      const array = await chunk(option, 25)
       const custom = {
         embeds: [{
           color: color(),
-          description: `**__Custom Command__** = 0`
+          description: `**__Custom Command__** = ${array.length}`
         }],
-        components: [notlimited]
+        components: [button, array]
+      }
+      await msg.channel.send(custom)
+    } else {
+      const button = option.length == 100 ? limited : notlimited
+      const menu = new MessageActionRow().addComponents(new MessageSelectMenu()
+        .setCustomId(`cc_selectmenu_edit_${creator.id}_1`)
+        .setPlaceholder(`Edit Command`)
+        .addOptions(option));
+      const custom = {
+        embeds: [{
+          color: color(),
+          description: `**__Custom Command__** = ${array.length}`
+        }],
+        components: [button, menu]
       }
       await msg.channel.send(custom)
     }
-  })
+  } else {
+    const custom = {
+      embeds: [{
+        color: color(),
+        description: `**__Custom Command__** = 0`
+      }],
+      components: [notlimited]
+    }
+    await msg.channel.send(custom)
+  }
 }
 async function chunk(obj, i) {
   let chunks = [];

@@ -1,11 +1,14 @@
 const { MessageActionRow, MessageSelectMenu } = require("discord.js");
-const { database, embeds, ephemeral, color } = require(".././../util/util")
-const db = database.ref("guild")
+const { embeds, ephemeral, color } = require(".././../util/util");
 module.exports.execute = async function(interaction, client) {
   // voice > temp > userId
   const guild = interaction.guild
   const member = guild.members.cache.get(interaction.user.id);
   const voiceChannel = member.voice.channel;
+  if (!voiceChannel) return interaction.reply(ephemeral("⚠️ **Please join voice terlebih dahulu.**"));
+  const db = await client.db.get(guild.id);
+  const vc = db.voice
+  const temp = vc.temp[voiceChannel.id]
   if (interaction.customId.includes("imut_vc_selectmenu_")) {
     const args = interaction.customId.replace("imut_vc_selectmenu_",'').split('_')
     const selected = (def, dyn) => {
@@ -24,81 +27,73 @@ module.exports.execute = async function(interaction, client) {
     ]
     var menu = comp.splice(0, oldcomp.length)
     
-    db.child(guild.id).once("value", async (server) => {
-      let vc = server.child("voice").child("temp").child(voiceChannel.id)
-      let trusted = vc.child("trust")
-      let array = trusted.exists() ? trusted.val().trim().split(",") : []
-      let result = [].concat(array, value)
-      let channel = guild.channels.resolve(voiceChannel.id)
-      await channel.permissionOverwrites.create(value[0],{
-        "VIEW_CHANNEL": true,
-        "CONNECT": true,
-        "SEND_MESSAGES": true,
-        "READ_MESSAGE_HISTORY": true,
-        "ADD_REACTIONS": true,
-        "EMBED_LINKS": true,
-        "ATTACH_FILES": true,
-        "USE_EXTERNAL_EMOJIS": true,
-        "USE_APPLICATION_COMMANDS": true,
-        "SEND_TTS_MESSAGES": true
-      })
-     
-      await db.child(guild.id).child("voice").child("temp").child(voiceChannel.id).update({trust:result.toString()})
-      await interaction.update(Object.assign(ephemeral(`🛡 Trusted Member Channel ${voiceChannel.name}\n\n${result.map(u=>`<@${u}>`).join("\n")}`), {components: menu }))
+    let trusted = temp.trust
+    let array = trusted ? trusted.trim().split(",") : []
+    let result = [].concat(array, value)
+    let channel = guild.channels.resolve(voiceChannel.id)
+    await channel.permissionOverwrites.create(value[0],{
+      "VIEW_CHANNEL": true,
+      "CONNECT": true,
+      "SEND_MESSAGES": true,
+      "READ_MESSAGE_HISTORY": true,
+      "ADD_REACTIONS": true,
+      "EMBED_LINKS": true,
+      "ATTACH_FILES": true,
+      "USE_EXTERNAL_EMOJIS": true,
+      "USE_APPLICATION_COMMANDS": true,
+      "SEND_TTS_MESSAGES": true
     })
+   
+    await client.db.update([guild.id, "voice", "temp", voiceChannel.id], {trust:result.toString()})
+    await interaction.update(Object.assign(ephemeral(`🛡 Trusted Member Channel ${voiceChannel.name}\n\n${result.map(u=>`<@${u}>`).join("\n")}`), {components: menu }))
   } else {
     await interaction.deferReply({ephemeral:true})
-    if (!voiceChannel) return interaction.editReply(ephemeral("⚠️ **Please join voice terlebih dahulu.**"));
-    db.child(guild.id).once("value", async (server) => {
-      var vc = server.child("voice")
-      var temp = vc.child("temp").child(voiceChannel.id)
-      var trusted = temp.child("trust")
-      var blocked = temp.child("block")
-      if(temp.numChildren() === 0) return interaction.editReply(ephemeral(`⛔ Kamu gak join di creator voice **${client.user.username}**!`));
-      var owner = temp.child("owner").val()
-      if (owner != interaction.user.id) return interaction.editReply(ephemeral("⚠️ Akses ditolak! Kamu bukan owner!"));
-      var ghost = temp.child("ghost").val()
-      if (ghost == "yes") return interaction.editReply(ephemeral(`⚠️ Tidak dapat menggunakan **TRUST** ketika channel dalam keadaan tersembunyi, Gunakan **UNHIDE** terlebih dahulu.`));
-      var isTrusted = trusted.exists() ? trusted.val().trim().split(",") : []
-      var isBlocked = blocked.exists() ? blocked.val().trim().split(",") : []
-      var isEmpty = voiceChannel.members.filter(member=> member.user.id != interaction.user.id)
-      if (isEmpty.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia saat ini.`));
-      var user = voiceChannel.members.filter(member=> !isTrusted.includes(member.user.id) && !isBlocked.includes(member.user.id) && member.user.id != interaction.user.id)
-      if (user.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia lagi coba gunakan *untrust* atau *unblock*.`));
-      const option = user.map(member=> {
-        return {
-          label: member.user.username,
-          value: member.user.id.toString()
-        }
-      })
-      
-      if (option.length > 25) {
-        const menu = await chunk(option, 25);
-        const custom = {
-          embeds: [{
-            color: color(),
-            description: `⚠️ Member terpilih dapat melihat dan bergabung pada **${voiceChannel.name}**`
-          }],
-          components: menu,
-          ephemeral: true
-        }
-        await interaction.editReply(custom)
-      } else {
-        const menu = new MessageActionRow().addComponents(new MessageSelectMenu()
-          .setCustomId("imut_vc_selectmenu_trust_1")
-          .setPlaceholder(`Daftar Member 1`)
-          .addOptions(option));
-        const custom = {
-          embeds: [{
-            color: color(),
-            description: `⚠️ Member terpilih dapat melihat dan bergabung pada **${voiceChannel.name}**`
-          }],
-          components: [menu],
-          ephemeral: true
-        }
-        await interaction.editReply(custom)
+    var trusted = temp.trust
+    var blocked = temp.block
+    if (!temp) return interaction.editReply(ephemeral(`⛔ Kamu gak join di creator voice **${client.user.username}**!`));
+    var owner = temp.owner
+    if (owner != interaction.user.id) return interaction.editReply(ephemeral("⚠️ Akses ditolak! Kamu bukan owner!"));
+    var ghost = temp.ghost
+    if (ghost == true) return interaction.editReply(ephemeral(`⚠️ Tidak dapat menggunakan **TRUST** ketika channel dalam keadaan tersembunyi, Gunakan **UNHIDE** terlebih dahulu.`));
+    var isTrusted = trusted ? trusted.trim().split(",") : []
+    var isBlocked = blocked ? blocked.trim().split(",") : []
+    var isEmpty = voiceChannel.members.filter(member=> member.user.id != interaction.user.id)
+    if (isEmpty.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia saat ini.`));
+    var user = voiceChannel.members.filter(member=> !isTrusted.includes(member.user.id) && !isBlocked.includes(member.user.id) && member.user.id != interaction.user.id)
+    if (user.size === 0) return interaction.editReply(ephemeral(`⚠️ Member tidak tersedia lagi coba gunakan *untrust* atau *unblock*.`));
+    const option = user.map(member=> {
+      return {
+        label: member.user.username,
+        value: member.user.id.toString()
       }
     })
+    
+    if (option.length > 25) {
+      const menu = await chunk(option, 25);
+      const custom = {
+        embeds: [{
+          color: color(),
+          description: `⚠️ Member terpilih dapat melihat dan bergabung pada **${voiceChannel.name}**`
+        }],
+        components: menu,
+        ephemeral: true
+      }
+      await interaction.editReply(custom)
+    } else {
+      const menu = new MessageActionRow().addComponents(new MessageSelectMenu()
+        .setCustomId("imut_vc_selectmenu_trust_1")
+        .setPlaceholder(`Daftar Member 1`)
+        .addOptions(option));
+      const custom = {
+        embeds: [{
+          color: color(),
+          description: `⚠️ Member terpilih dapat melihat dan bergabung pada **${voiceChannel.name}**`
+        }],
+        components: [menu],
+        ephemeral: true
+      }
+      await interaction.editReply(custom)
+    }
   }
 }
 async function chunk(obj, i) {

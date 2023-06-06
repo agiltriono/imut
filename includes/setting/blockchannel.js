@@ -1,10 +1,11 @@
 const { MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js");
-const { database, clear, embeds, remove, color } = require(".././../util/util");
-const db = database.ref("guild")
+const { clear, embeds, remove, color } = require(".././../util/util");
 module.exports.execute = async function(interaction, client, userId) {
-  const message = interaction.message
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
+  const db = await client.db.get(guild.id);
+  const modlink = db.modlink;
+  const message = interaction.message
   const selected = [...interaction.values]
   if(selected.includes("tutup")) return interaction.message.delete();
   const description = message.embeds[0].description.trim()
@@ -37,8 +38,9 @@ module.exports.execute = async function(interaction, client, userId) {
     ]
   }
   const menu = option.length > 25 ? await chunk(option, 25, userId) : simple()
-  if (merged.length == 0) await db.child(guild.id).child("bc").remove();
-  if (merged.length > 0) await db.child(guild.id).update({bc:merged.toString()});
+  
+  await client.db.update(guild.id, {bc:merged.toString()});
+  
   await interaction.update({
     embeds: [{
       color: color(),

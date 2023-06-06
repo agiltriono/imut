@@ -1,0 +1,350 @@
+{
+  "1030568935281672192": {
+    "prefix": "sg.",
+    "bc": "1031857810755043429",
+    "booster": {
+      "booster_role": "1030582262745538670",
+      "channel": "1030568936095350889",
+      "content": {
+        "embeds": {
+          "color": "#FF9AD1",
+          "description": "heii {member} thank you for boosting this server ! yok bisa ke <#1029694054696493087> untuk buat **Custom Role** yang kamu mau ^^ luv u ♡",
+          "footer": {
+            "icon_url": "https://firebasestorage.googleapis.com/v0/b/support-5a8f7.appspot.com/o/20221106_011338_0000.jpg?alt=media&token=a2829189-7879-4046-ab97-7d8fd4731a1c",
+            "text": "discord.gg/imutserver"
+          },
+          "thumbnail": {
+            "url": "https://res.cloudinary.com/raybots/image/upload/v1671052079/1030568935281672192/1038096727674195999/booster_thumbnail/thumbnail.gif"
+          }
+        }
+      },
+      "enable": true,
+      "ex_booster_role": "1030572837381083147",
+      "show": "embeds"
+    },
+    "cc": [
+      {
+        "allow_vc": false,
+        "channel": "1030568936577716254",
+        "content": "https://media.discordapp.net/attachments/1022568834307199068/1037995088174915624/20220901_120207.gif",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "tester",
+        "trigger": "welcome",
+        "type": "content",
+        "wildcard": false
+      }
+    ],
+    "gb": {
+      "channel": "1036002169939296416",
+      "enable": false,
+      "m": {
+        "content": "Selamat Tinggal {member}",
+        "embeds": [{
+          "color": "#305AA2",
+          "image": {
+            "url": "https://res.cloudinary.com/raybots/image/upload/v1670701509/1030568935281672192/1038096727674195999/gb/gb.png"
+          }
+        }]
+      },
+      "show": "embeds"
+    },
+    "manager": [
+      {
+        "id": "858510813811441675",
+        "password": "12345",
+        "username": "agiel"
+      }
+    ],
+    "voice": {
+      "allow_link": "youtu.be,spotify.com,soundcloud.com",
+      "creator": "1030568936577716258",
+      "temp": {}
+    },
+    "wc": {
+      "channel": "1030568936577716254",
+      "enable": false,
+      "m": {
+        "content": "Hallo 👋 {member}",
+        "embeds": [{
+          "color": "#FF9AD1",
+          "description": "Jangan lupa membaca rules server <#984412187999223879>\nDan jangan lupa ambil role kamu di <#979457435905437767>\nSemoga betah🙏",
+          "image": {
+            "url": "https://res.cloudinary.com/raybots/image/upload/v1671053457/1030568935281672192/1038096727674195999/wc/wc.gif"
+          },
+          "title": "Welcome to 𝐈𝐦𝐮𝐭 𝐒𝐞𝐫𝐯𝐞𝐫"
+        }]
+      },
+      "show": "embeds"
+    }
+  },
+  "972328273885401168": {
+    "bc": "1025414798608978022,992287958583480422,986297560211787827,984412187999223879,979457435905437767,1026494229456896081,1010487550198169670,972328274413887530,1026494189732646912,1002905425525608489,996055065276207135,989457062729748541,1028226330631880724,1029773664121536582,986298486553194548,983283512700452884,1026498880931635271,990804532332212274,991304131090317333,985410706868404234,992280725850169354,976542348882358342,983747210183323688,992281104000225300,1026494209097748501,996380398596673666,1010884921461584023,984414921863364628",
+    "booster": {
+      "booster_role": "983650505408528395",
+      "channel": "983747210183323688",
+      "content": {
+        "content": null,
+        "embeds": [
+          {
+            "color": "#ff9ad1",
+            "description": "heii {member} thank you for boosting this server ! yok bisa ke <#1029694054696493087> untuk buat **Custom Role** yang kamu mau ^^ luv u ♡",
+            "footer": {
+              "icon_url": "https://firebasestorage.googleapis.com/v0/b/support-5a8f7.appspot.com/o/20221106_011338_0000.jpg?alt=media&token=a2829189-7879-4046-ab97-7d8fd4731a1c",
+              "text": "discord.gg/imutserver"
+            },
+            "thumbnail": {
+              "url": "https://firebasestorage.googleapis.com/v0/b/support-5a8f7.appspot.com/o/qq911bvdqwu51.gif?alt=media&token=1c99f782-6bf9-492a-aeda-87777ad0f67d"
+            }
+          }
+        ]
+      },
+      "enable": true,
+      "ex_booster_role": "1041306148592164944",
+      "show": "embeds"
+    },
+    "cc": [
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "https://media.discordapp.net/attachments/1022568834307199068/1037995088174915624/20220901_120207.gif",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "Welcomer",
+        "trigger": "welcome",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "Queen paling cantik di sini!",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "queen",
+        "trigger": "queen",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "Jangan banyak bacot woi!",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "parah",
+        "trigger": "parah",
+        "type": "content",
+        "wildcard": true
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "iyaa icii emang paling comel",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "iciiComel",
+        "trigger": "icii",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "ngetik ngetik cika, knp? kangen y? tp monmaap, cika sibuk!",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "cikarzx",
+        "trigger": "cika",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "https://media.discordapp.net/attachments/1027868284688797706/1054745738166411324/IMG_4580.png",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "yayang",
+        "trigger": "yayang",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": true,
+        "channel": "1026165689997865090,1038695311712985088",
+        "content": "> **Real** = [ ***!!*** ]\n> **LunaBot** = [ ***!play*** ]\n> **Probot** = [ ***#*** ]\n> **Chip** = [ ***/*** ]\n> **Chip 2** = [ ***/*** ]\n> **Chip 3** = [ ***/*** ]\n> **Chip Beta** = [ ***/*** ]\n> **HUGE** = [ ***/*** ]\n> **Muzox** = [ ***m1!*** ]\n> **Muzox 2** = [ ***m2!***] \n> **Muzox 3** = [ ***m3!*** ] \n> **Alex Music** = [ ***al.*** ]\n> **Bongo** = [ ***b.*** ]\n> **Diva** = [ ***d1.*** ]\n> **Diva 2** = [ ***d2.*** ]\n> **Diva 3** = [ ***d3.*** ]\n> **Diva 4** = [ ***d4.*** ]\n> **Diva 5** = [ ***d5.*** ]\n> **Diva 6** = [ ***d6.*** ]\n> **Diva Staging** = [ ***ds.*** ]\n> **Jockie Music** = [ ***jo.*** ]\n> **Jockie Music 2** = [ ***jo.*** ]\n> **Jockie Music 3** = [ ***jo.*** ]\n> **Jockie Music 4** = [ ***jo.*** ]\n> **KIRA** = [ ***k.*** ]\n> **Liberty Walk** = [ ***lb.*** ]\n> **Melody Music** = [ ***m1.*** ]\n> **Melody Music 2** = [ ***m2.*** ]\n> **FredBoat** = [ <@184405311681986560> ]\n> **Pancake** = [ ***p!play*** ]\n> **Vexera** = [ ***vexe.*** ]\n> **Betty** = [ ***/*** ]\n> **Hydra** = [ ***.*** ]\n> **zhora** = [ ***z.*** ]",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "musicprefix",
+        "trigger": "musicprefix",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "Iya la masa iya iya dong duren aja di belah masa di gendong 🙈",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "ApaIya",
+        "trigger": "Apa Iya",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "https://media.discordapp.net/attachments/1022568834307199068/1044904506820931624/nitro.gif",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "batas",
+        "trigger": "batas",
+        "type": "content",
+        "wildcard": false
+      },
+      {
+        "allow_vc": false,
+        "channel": "976519830909878342",
+        "content": "https://media.discordapp.net/attachments/1022568834307199068/1044907612837265459/rQFco8F1OtXeyXdG.gif",
+        "embed": {
+          "description": "Pratinjau Embed"
+        },
+        "name": "server",
+        "trigger": "server",
+        "type": "content",
+        "wildcard": false
+      }
+    ],
+    "gb": {
+      "channel": "",
+      "enable": false,
+      "m": {
+        "content": "Selamat tinggal 👋 {member}",
+        "embeds": [{
+          "description": "Selamat tinggal 👋"
+        }]
+      },
+      "show": "content"
+    },
+    "manager": [
+      {
+        "id": "858510813811441675",
+        "password": "12345",
+        "username": "agiel"
+      },
+      {
+        "id": "905894705492025375",
+        "password": "adminjoeyy",
+        "username": "joeyy"
+      },
+      {
+        "id": "955893256347082792",
+        "password": "adminqueen",
+        "username": "queensyg"
+      }
+    ],
+    "modlink": [
+      {
+        "action": "allow",
+        "channel": "976519830909878342",
+        "createdAt": 1668428320274,
+        "createdBy": "858510813811441675",
+        "id": "rule-1668428320274",
+        "link": "",
+        "name": "General Channel"
+      },
+      {
+        "action": "allow",
+        "channel": "1026494841099661322",
+        "createdAt": 1668429148784,
+        "createdBy": "858510813811441675",
+        "id": "rule-1668429148784",
+        "link": "youtu.be,youtube.com",
+        "name": "Youtube Share"
+      },
+      {
+        "action": "allow",
+        "channel": "1026494827891789926",
+        "createdAt": 1668429313425,
+        "createdBy": "858510813811441675",
+        "id": "rule-1668429313425",
+        "link": "vt.tiktok.com,tiktok.com",
+        "name": "Tiktok Share"
+      },
+      {
+        "action": "allow",
+        "channel": "1026494879624339476",
+        "createdAt": 1668429449610,
+        "createdBy": "858510813811441675",
+        "id": "rule-1668429449610",
+        "link": "instagram.com",
+        "name": "Instagram Share"
+      },
+      {
+        "action": "disallow",
+        "channel": "1026168985168912435",
+        "createdAt": 1668431140577,
+        "createdBy": "858510813811441675",
+        "id": "rule-1668431140577",
+        "link": "youtube.com,youtu.be,instagram.com,tiktok.com,vt.tiktok.com,discord.gg,top.gg,soundcloud.com,spotify.com",
+        "name": "Chat Bebas"
+      },
+      {
+        "action": "disallow",
+        "channel": "1026494797705392239",
+        "createdAt": 1668448518750,
+        "createdBy": "858510813811441675",
+        "id": "rule-1668448518750",
+        "link": "discord.gg,tiktok.com,youtube.com,youtu.be,instagram.com",
+        "name": "Media Share"
+      },
+      {
+        "action": "allow",
+        "channel": "985410706868404234",
+        "createdAt": 1669879405745,
+        "createdBy": "858510813811441675",
+        "id": "rule-1669879405745",
+        "link": "",
+        "name": "Bump Channel"
+      }
+    ],
+    "prefix": "sg.",
+    "tr": "976519830909878342",
+    "voice": {
+      "allow_link": "youtube.com,youtu.be,soundcloud.com,spotify.com,tenor.com",
+      "creator": "1038694229477687318",
+      "temp": {}
+    },
+    "wc": {
+      "channel": "976519830909878342",
+      "enable": true,
+      "m": {
+        "content": "Hallo 👋 {member}",
+        "embeds": [{
+          "color": 16751313,
+          "description": "Jangan lupa membaca rules server <#984412187999223879>\nDan jangan lupa ambil role kamu di <#979457435905437767>\nSemoga betah🙏",
+          "image": {
+            "height": 360,
+            "proxyURL": "https://images-ext-1.discordapp.net/external/-XKdYHnUpdtNVz26FXlzOQebsnPMX2a2kJVfAYk-EnE/%3Falt%3Dmedia%26token%3D72c8bd3e-bc79-4965-808f-d81e58c79762/https/firebasestorage.googleapis.com/v0/b/support-5a8f7.appspot.com/o/20220723_155324.gif",
+            "url": "https://firebasestorage.googleapis.com/v0/b/support-5a8f7.appspot.com/o/20220723_155324.gif?alt=media&token=72c8bd3e-bc79-4965-808f-d81e58c79762",
+            "width": 720
+          },
+          "title": "Welcome to 𝐈𝐦𝐮𝐭 𝐒𝐞𝐫𝐯𝐞𝐫",
+          "type": "rich"
+        }]
+      },
+      "show": "embeds"
+    }
+  }
+}

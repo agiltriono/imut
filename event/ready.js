@@ -6,25 +6,24 @@ module.exports = {
     const directory = path.join(__dirname, "..","commands");
     
     // Presence
-    let num = 1;
+    client.user.setActivity(`discord.gg/imutserver`, { type: "WATCHING", url: "https://discord.gg/imutserver" });
+    /*let num = 0;
     interval = setInterval(() => {
+        num++;
         if (num == 1) {
             client.user.setActivity(`discord.gg/imutserver`, { type: "PLAYING", url: "https://discord.gg/imutserver" });
-            num = 2;
         }
         if (num == 2) {
             client.user.setActivity(`discord.gg/imutserver`, { type: "LISTENING", url: "https://discord.gg/imutserver" });
-            num = 3;
         }
         if (num == 3) {
             client.user.setActivity(`discord.gg/imutserver`, { type: "WATCHING", url: "https://discord.gg/imutserver" });
-            num = 4;
         }
         if (num == 4) {
             client.user.setActivity(`discord.gg/imutserver`, { type: "STREAMING", url: "https://discord.gg/imutserver" });
-            num = 1;
+            num = 0;
         }
-    }, 20000);
+    }, 20000);*/
 
     // command handler
     fs.readdirSync(directory).forEach(child => {
@@ -45,8 +44,6 @@ module.exports = {
             }
         }
     })
-    const Server = require("../app");
-    const app = new Server(client)
     console.log(`Bot running..`)
   }
 }

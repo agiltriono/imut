@@ -1,15 +1,14 @@
 // MODLINK MODULE
-module.exports = async function linkremover(msg, text, voice){
+module.exports = async function linkremover(msg, text, vc){
   const channelId = msg.channelId
-  const vc = voice
-  const temp = vc.child("temp").child(channelId)
-  const vclink = vc.child("allow_link")
+  const temp = vc["temp"][channelId]
+  const vclink = vc["allow_link"]
   const content = msg.content.toLowerCase()
-  if (temp.exists() && vclink.exists()) {
-    const filter = vclink.val().trim().split(",");
+  if (temp.length && vclink.length) {
+    const filter = vclink.trim().split(",");
     if(filter.length != 0 && !filter.some(c => content.includes(c))) return await msg.delete();
-  } else if (text.exists()) {
-    const arr = [...text.val()]
+  } else if (text.length) {
+    const arr = [...text]
     for (let i = 0; i < arr.length; i++) {
       if(arr[i].channel.includes(channelId)) {
         const index = arr[i]

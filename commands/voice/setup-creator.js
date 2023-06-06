@@ -1,5 +1,4 @@
-const { database, embeds, getmsg, clear, remove, color } = require(".././../util/util"); 
-const db = database.ref("guild");
+const { embeds, getmsg, clear, remove, color } = require(".././../util/util");
 const { MessageButton } = require("discord.js");
 
 module.exports.help = {
@@ -21,14 +20,13 @@ module.exports.run = async function(msg, args, creator, prefix) {
   ].filter(u=>u.toString() != "false")
   if(permis.length === 0) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
-  
   const ch = /^[0-9]*$/;
   if (ch.test(args[0])) {
     let channelId = args[0].replace(/ +/g, '')
     let channel = msg.guild.channels.cache.get(channelId)
-    if(!channel) return msg.channel.send(embeds("❌ Channel tidak ditemukan!"));
+    if (!channel) return msg.channel.send(embeds("❌ Channel tidak ditemukan!"));
     if (channel.type != "GUILD_VOICE") return msg.channel.send(embeds("❌ Channel bukan *Voice Channel*"));
-    await db.child(msg.guild.id).child("voice").update({creator:channel.id})
+    await msg.client.db.update([msg.guild.id, "voice"], { creator: channel.id })
     const permit = channel.permissionOverwrites.cache.filter(c=>c.type == "role" && !["984301622492541010","985762912062808174"].includes(c.id.toString()))
     permit.forEach(async (c)=> {
       await channel.permissionOverwrites.edit(c.id, {

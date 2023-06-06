@@ -1,7 +1,7 @@
 const { embeds, getmsg, remove, color } = require("../util/util"); 
 const fs = require("fs");
 
-module.exports = async function help(msg, client, args, creator) {
+module.exports = async function help(msg, args, creator) {
   const permis = [
     (msg.member.permissions.has("ADMINISTRATOR")),
     (msg.member.permissions.has("MANAGE_GUILD")),
@@ -9,11 +9,11 @@ module.exports = async function help(msg, client, args, creator) {
   ].filter(u=>u.toString() != "false")
   if(permis.length === 0) return;
   var emoji = [
-	{ name: "Auto Channel", emoji:"🔊"},
-	{ name: "Setting", emoji:"⚙️"},
-	{ name: "Utility", emoji:"🛠"},
-	{ name: "Custom Command", emoji:"📝"},
-	{ name: "Auto Mod", emoji:"🛡"},
+    { name: "Auto Channel", emoji:"🔊"},
+    { name: "Setting", emoji:"⚙️"},
+    { name: "Utility", emoji:"🛠"},
+    { name: "Custom Command", emoji:"📝"},
+    { name: "Auto Mod", emoji:"🛡"},
   ]
   var list = msg.client.commands.map(cmd => cmd.help.category)
   var category = [...new Set(list)].map(cat => {

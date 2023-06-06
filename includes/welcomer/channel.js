@@ -1,12 +1,11 @@
 const { MessageActionRow, MessageSelectMenu } = require("discord.js");
-const { database, color } = require(".././../util/util");
-const db = database.ref("guild")
+const { color } = require(".././../util/util");
 module.exports.execute = async function(interaction, client, userId) {
   const guild = interaction.guild
   const member = interaction.guild.members.cache.get(interaction.user.id)
   if (interaction.customId.includes("welcomer_selectmenu_")) {
     const value = interaction.values[0]
-    await db.child(guild.id).child("wc").update({ channel : value })
+    await client.db.update([guild.id, "wc"], { channel : value })
     await interaction.update({embeds:[{description: `✅ Channel di set ke <#${value}>`}],components:[]})
   } else {
     await interaction.deferReply({ephemeral:true})

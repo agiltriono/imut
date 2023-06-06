@@ -1,10 +1,7 @@
-const { database } = require(".././../util/util")
-const db = database.ref("guild");
 module.exports.execute = async function(interaction, client, userId) {
   const guild = interaction.guild
-  db.child(guild.id).once("value", async (s)=> {
-    const wc = s.child("wc").child("m")
-    if (wc.exists()) await db.child(guild.id).child("wc").child("m").remove();
-    await interaction.update({content: null,embeds:[]})
-  })
+  const db = await client.db.get(guild.id)
+  const wc = db.wc.m
+  if (wc) await client.db.update([guild.id, "wc", "m"], {content:null,embeds:[]});
+  await interaction.update({content: null,embeds:[]})
 }

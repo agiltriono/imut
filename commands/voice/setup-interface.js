@@ -1,5 +1,4 @@
-const { database, embeds, getmsg, clear, remove, color } = require(".././../util/util"); 
-const db = database.ref("guild");
+const { embeds, getmsg, clear, remove, color } = require(".././../util/util");
 const { MessageButton } = require("discord.js");
 
 module.exports.help = {

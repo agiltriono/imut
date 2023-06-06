@@ -1,6 +1,5 @@
-const { database, clear, getmsg, embeds, remove, color } = require(".././../util/util");
 const { MessageButton } = require("discord.js");
-const db = database.ref("guild");
+const { clear, getmsg, embeds, remove, color } = require(".././../util/util");
 module.exports.help = {
   name: "welcomer",
   aliases: ["wc"],
@@ -20,7 +19,7 @@ module.exports.run = async function(msg, args, creator, prefix) {
   ].filter(u=>u.toString() != "false")
   if(permis.length === 0) return;
   if (!msg.guild.me.permissions.has("SEND_MESSAGES")) return msg.channel.send(embeds("❌ Aku butuh permissions `SEND_MESSAGES`")).then(m=> clear(m, 3000));
-  var row = {
+  const row = {
     type: 1,
     components: [
       new MessageButton().setCustomId('welcomer').setLabel("Welcome").setEmoji("🤗").setStyle('PRIMARY'),
@@ -44,10 +43,8 @@ module.exports.run = async function(msg, args, creator, prefix) {
     time : 100000
   })
   
-  c.on('collect', async (m) => {
-    var id = m.customId;
-    c.stop(id)
-  })
+  c.on('collect', async (m) => c.stop(m.customId))
+  
   c.on('end', async (collected, reason) => {
     await message.delete()
     if (reason === 'welcomer') {
@@ -60,68 +57,62 @@ module.exports.run = async function(msg, args, creator, prefix) {
   })
 }
 async function welcomer (msg, creator) {
-  db.child(msg.guild.id).once("value", async (server) => {
-    let wc = server.child("wc")
-    let enable = wc.child("enable").val()
-    let status = enable == "yes" ? "yes" : "no" 
-    var row_enable = {
-      type: 1,
-      components: [
-        new MessageButton().setCustomId('welcomer_button_disable_'+creator.id).setEmoji("🚫").setLabel("Disable").setStyle('DANGER'),
-        new MessageButton().setCustomId('welcomer_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(false),
-        new MessageButton().setCustomId('welcomer_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
-      ]
-    }
-    var row_disable = {
-      type: 1,
-      components: [
-        new MessageButton().setCustomId('welcomer_button_enable_'+creator.id).setEmoji("✅").setLabel("Enable").setStyle('SUCCESS'),
-        new MessageButton().setCustomId('welcomer_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(true),
-        new MessageButton().setCustomId('welcomer_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
-      ]
-    }
-    var row = status === "yes" ? row_enable : row_disable
-    const content = {
-      embeds : [{
-        color: color(),
-        title: "WELCOMER",
-        description: `Status : ${status == "yes" ? "Aktif" : "Nonaktif"}`
-      }],
-      components: [row]
-    }
-    await msg.channel.send(content)
-  })
+  const wc = await msg.client.db.get([guild.id, "wc"]);
+  const enable = wc.enable;
+  const row_enable = {
+    type: 1,
+    components: [
+      new MessageButton().setCustomId('welcomer_button_disable_'+creator.id).setEmoji("🚫").setLabel("Disable").setStyle('DANGER'),
+      new MessageButton().setCustomId('welcomer_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(false),
+      new MessageButton().setCustomId('welcomer_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
+    ]
+  }
+  const row_disable = {
+    type: 1,
+    components: [
+      new MessageButton().setCustomId('welcomer_button_enable_'+creator.id).setEmoji("✅").setLabel("Enable").setStyle('SUCCESS'),
+      new MessageButton().setCustomId('welcomer_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(true),
+      new MessageButton().setCustomId('welcomer_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
+    ]
+  }
+  const row = enable ? row_enable : row_disable
+  const content = {
+    embeds : [{
+      color: color(),
+      title: "WELCOMER",
+      description: `Status : ${enable == true ? "Aktif" : "Nonaktif"}`
+    }],
+    components: [row]
+  }
+  await msg.channel.send(content)
 }
 async function goodbye(msg, creator) {
-  db.child(msg.guild.id).once("value", async (server) => {
-    let gb = server.child("gb")
-    let enable = gb.child("enable").val()
-    let status = enable == "yes" ? "yes" : "no" 
-    var row_enable = {
-      type: 1,
-      components: [
-        new MessageButton().setCustomId('goodbye_button_disable_'+creator.id).setEmoji("🚫").setLabel("Disable").setStyle('DANGER'),
-        new MessageButton().setCustomId('goodbye_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(false),
-        new MessageButton().setCustomId('goodbye_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
-      ]
-    }
-    var row_disable = {
-      type: 1,
-      components: [
-        new MessageButton().setCustomId('goodbye_button_enable_'+creator.id).setEmoji("✅").setLabel("Enable").setStyle('SUCCESS'),
-        new MessageButton().setCustomId('goodbye_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(true),
-        new MessageButton().setCustomId('goodbye_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
-      ]
-    }
-    var row = status === "yes" ? row_enable : row_disable
-    const content = {
-      embeds : [{
-        color: color(),
-        title: "GOODBYE",
-        description: `Status : ${status == "yes" ? "Aktif" : "Nonaktif"}`
-      }],
-      components: [row]
-    }
-    await msg.channel.send(content)
-  })
+  const gb = await msg.client.db.get([guild.id, "gb"]);
+  const enable = gb.enable;
+  const row_enable = {
+    type: 1,
+    components: [
+      new MessageButton().setCustomId('goodbye_button_disable_'+creator.id).setEmoji("🚫").setLabel("Disable").setStyle('DANGER'),
+      new MessageButton().setCustomId('goodbye_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(false),
+      new MessageButton().setCustomId('goodbye_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
+    ]
+  }
+  const row_disable = {
+    type: 1,
+    components: [
+      new MessageButton().setCustomId('goodbye_button_enable_'+creator.id).setEmoji("✅").setLabel("Enable").setStyle('SUCCESS'),
+      new MessageButton().setCustomId('goodbye_button_edit_'+creator.id).setEmoji("📝").setLabel("Edit").setStyle('PRIMARY').setDisabled(true),
+      new MessageButton().setCustomId('goodbye_button_close_'+creator.id).setLabel("Tutup").setEmoji("❌").setStyle('DANGER')
+    ]
+  }
+  const row = enable ? row_enable : row_disable
+  const content = {
+    embeds : [{
+      color: color(),
+      title: "GOODBYE",
+      description: `Status : ${enable == true ? "Aktif" : "Nonaktif"}`
+    }],
+    components: [row]
+  }
+  await msg.channel.send(content)
 }

@@ -1,9 +1,8 @@
-const { database, embeds, ephemeral, color } = require(".././../util/util")
+const { embeds, ephemeral, color } = require(".././../util/util")
 const { MessageButton } = require("discord.js");
-const db = database.ref("guild")
 module.exports.execute = async function(interaction, client, userId) {
   const guild = interaction.guild
-  await db.child(guild.id).child("wc").update({enable:"yes"})
+  await client.db.update([guild.id, "wc"], {enable:true})
   var row = {
     type: 1,
     components: [

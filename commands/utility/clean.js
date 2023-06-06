@@ -9,7 +9,7 @@ module.exports.help = {
   permissions: ["MANAGE_MESSAGES","ADMINISTRATOR"],
   description: "Hapus beberapa atau seluruh pesan dalam channel."
 }
-module.exports.run = async (msg, args, creator, client, prefix) => {
+module.exports.run = async (msg, args, creator, prefix) => {
   await clear(msg, 1000)
   const permis = [
     (msg.member.permissions.has("ADMINISTRATOR")),

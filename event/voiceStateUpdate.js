@@ -22,7 +22,6 @@ module.exports = {
     const guild = newState.guild;
     const newChannel = newState.channel;
     const newChannelId = newState.channelId;
-    const queue = client.player.getQueue(guild.id);
     const vc = db["voice"];
     const mainChannel = vc["creator"];
     const temp = vc["temp"];
@@ -62,11 +61,6 @@ module.exports = {
       // Move the member to the new channel.
       await newState.setChannel(channel);
       return;
-    }
-    
-    // Bot leave or disconnected from music channel
-    if (!newChannelId && member.id === client.user.id && queue) {
-      return client.player.emit('botDisconnect', queue);
     }
     
     // User switch or disconnected or delete temporary channel

@@ -1,6 +1,4 @@
 const { timeconvert } = require("../util/util");
-const play = require('../includes/music/play');
-const { getData } = require('../util/music');
 const shuffle = require("../util/shuffle-array")
 const customHandler = require("../util/customHandler")
 const linkremover = require("../util/linkremover")
@@ -12,7 +10,6 @@ module.exports = {
     if (!message.guild) return;
     // DATABASE LINE
     const db = await client.db.get([message.guild.id]);
-    const music = await getData();
     const blockedchannel = db["bc"];
     // TEMPORARY CHANNEL START
     const vc = db["voice"];
@@ -33,7 +30,6 @@ module.exports = {
     const manages = message.guild.me.permissions.has("MANAGE_MESSAGES") && message.guild.me.permissions.has("MANAGE_CHANNELS");
     const hasPerm = viewsend && manages;
     const str = message.content.toLowerCase()
-    if (!command && message.channel.id === music.music_channel) return play(message, client, message.content);
     if ((str.includes("http://") || str.includes("https://")) && !command && command != helpString) {
       await linkremover(message, link_remover, vc)
     }

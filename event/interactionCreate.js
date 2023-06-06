@@ -19,7 +19,6 @@ module.exports = {
           })
         }
       }
-      if (interaction.customId.includes('uimusic_')) return go("music", "music/music", interaction.customId.replace("uimusic_", ""));
       if (interaction.customId.includes('imut_vc_interface_')) return go("vc", "vc/vc", interaction.customId.replace("imut_vc_interface_", ""));
       if (interaction.customId.includes('welcomer_button_')) return go("welcomer", "welcomer/welcomer", interaction.customId.replace("welcomer_button_", ""));
       if (interaction.customId.includes('goodbye_button_')) return go("goodbye", "goodbye/goodbye", interaction.customId.replace("goodbye_button_", ""));

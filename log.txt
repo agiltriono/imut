@@ -1,0 +1,69 @@
+﻿Bot running..
+﻿(node:1) DeprecationWarning: Guild#me is deprecated. Use Guild#members#me instead.
+﻿(Use `node --trace-deprecation ...` to show where the warning was created)
+﻿Unhandled promise rejection: DiscordAPIError: Unknown Channel
+﻿at RequestHandler.execute (/app/node_modules/discord.js/src/rest/RequestHandler.js:350:13)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿at async RequestHandler.push (/app/node_modules/discord.js/src/rest/RequestHandler.js:51:14)
+﻿at async GuildChannelManager.delete (/app/node_modules/discord.js/src/managers/GuildChannelManager.js:498:5)
+﻿at async VoiceChannel.delete (/app/node_modules/discord.js/src/structures/GuildChannel.js:449:5)
+﻿at async Object.execute (/app/event/voiceStateUpdate.js:72:9) {
+﻿method: 'delete',
+﻿path: '/channels/1115687140634931381',
+﻿code: 10003,
+﻿httpStatus: 404,
+﻿requestData: { json: undefined, files: [] }
+﻿}
+﻿Unhandled promise rejection: TypeError: Cannot read properties of undefined (reading 'length')
+﻿at linkremover (/app/util/linkremover.js:7:12)
+﻿at Object.execute (/app/event/messageCreate.js:34:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿Unhandled promise rejection: TypeError: Cannot read properties of undefined (reading 'length')
+﻿at linkremover (/app/util/linkremover.js:7:12)
+﻿at Object.execute (/app/event/messageCreate.js:34:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿Unhandled promise rejection: TypeError: Cannot read properties of undefined (reading 'length')
+﻿at linkremover (/app/util/linkremover.js:7:12)
+﻿at Object.execute (/app/event/messageCreate.js:34:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿Unhandled promise rejection: TypeError: Cannot read properties of undefined (reading 'length')
+﻿at linkremover (/app/util/linkremover.js:7:12)
+﻿at Object.execute (/app/event/messageCreate.js:34:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿Unhandled promise rejection: DiscordAPIError: Unknown Channel
+﻿at RequestHandler.execute (/app/node_modules/discord.js/src/rest/RequestHandler.js:350:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿at async RequestHandler.push (/app/node_modules/discord.js/src/rest/RequestHandler.js:51:14)
+﻿at async GuildChannelManager.delete (/app/node_modules/discord.js/src/managers/GuildChannelManager.js:498:5)
+﻿at async VoiceChannel.delete (/app/node_modules/discord.js/src/structures/GuildChannel.js:449:5)
+﻿at async Object.execute (/app/event/voiceStateUpdate.js:72:9) {
+﻿method: 'delete',
+﻿path: '/channels/1116725010216788028',
+﻿code: 10003,
+﻿httpStatus: 404,
+﻿requestData: { json: undefined, files: [] }
+﻿}
+﻿Unhandled promise rejection: TypeError: Cannot read properties of undefined (reading 'length')
+﻿at linkremover (/app/util/linkremover.js:7:12)
+﻿at Object.execute (/app/event/messageCreate.js:34:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿Unhandled promise rejection: TypeError: Cannot read properties of undefined (reading 'length')
+﻿at linkremover (/app/util/linkremover.js:7:12)
+﻿at Object.execute (/app/event/messageCreate.js:34:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿Unhandled promise rejection: TypeError: Cannot read properties of undefined (reading 'length')
+﻿at linkremover (/app/util/linkremover.js:7:12)
+﻿at Object.execute (/app/event/messageCreate.js:34:13)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)
+﻿Unhandled promise rejection: TypeError: Cannot read properties of null (reading 'members')
+﻿at Object.execute (/app/event/voiceStateUpdate.js:69:35)
+﻿at runMicrotasks (<anonymous>)
+﻿at processTicksAndRejections (node:internal/process/task_queues:96:5)

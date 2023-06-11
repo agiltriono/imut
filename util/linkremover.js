@@ -1,7 +1,8 @@
 // MODLINK MODULE
 module.exports = async function linkremover(msg, text, vc){
   const channelId = msg.channelId
-  const temp = vc["temp"][channelId]
+  if (!vc["temp"][channelId]) return;
+  const temp = vc["temp"][channelId];
   const vclink = vc["allow_link"]
   const content = msg.content.toLowerCase()
   if (temp.length && vclink.length) {
@@ -26,6 +27,7 @@ module.exports = async function linkremover(msg, text, vc){
         } else {
           return;
         }
+	return;
         break;
       }
     }

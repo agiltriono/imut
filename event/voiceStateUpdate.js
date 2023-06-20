@@ -67,7 +67,7 @@ module.exports = {
     if (oldChannelId && oldChannelId != newChannelId && temp[oldChannelId]) {
       const channel = await guild.channels.resolve(oldChannelId);
       const memberCount = channel.members.filter(member=> !member.user.bot).size;
-      if (memberCount === 0) {
+      if (memberCount === 0 && channel) {
         // Delete the channel
         await channel.delete();
         //await db.child(guild.id).child("voice").child("temp").child(oldChannelId).remove()
